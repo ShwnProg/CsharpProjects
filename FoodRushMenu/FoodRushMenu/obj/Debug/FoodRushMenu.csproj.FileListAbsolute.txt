@@ -1,0 +1,7 @@
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRushMenu\FoodRushMenu\obj\Debug\FoodRushMenu.csproj.AssemblyReference.cache
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRushMenu\FoodRushMenu\obj\Debug\FoodRushMenu.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRushMenu\FoodRushMenu\bin\Debug\FoodRushMenu.exe.config
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRushMenu\FoodRushMenu\bin\Debug\FoodRushMenu.exe
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRushMenu\FoodRushMenu\bin\Debug\FoodRushMenu.pdb
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRushMenu\FoodRushMenu\obj\Debug\FoodRushMenu.exe
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRushMenu\FoodRushMenu\obj\Debug\FoodRushMenu.pdb
