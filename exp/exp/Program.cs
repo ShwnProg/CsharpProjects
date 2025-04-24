@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace PROJECT
 {
@@ -9,7 +9,14 @@ namespace PROJECT
             string[,] saveOrder = new string[10, 10];  // Added an extra column for cash and change
             int savedIndex = 0;
             int orderNumber = 1;
-            UserLogin(saveOrder, ref savedIndex, ref orderNumber);
+            try
+            {
+                UserLogin(saveOrder, ref savedIndex, ref orderNumber);
+            }
+            catch(FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             Console.Read();
         }
 
@@ -100,26 +107,75 @@ namespace PROJECT
                 {"[E5]", "Apple Pie", "60 PHP"}
             };
 
-            DisplayFoodRushMenu(comboMeal, drinks, dessert);
+            //DisplayFoodRushMenu(comboMeal, drinks, dessert);
 
-            string menuChoice, food = "";
+            string menuChoice = "", food = "", meal = "",Drinks = "",Dessert = "";
             double total = 0, itemTotal = 0;
-            int quantity = 0;
+            int category = 0,quantity = 0;
             bool continueOrder = true;
 
             do
             {
-                Console.Write("\n\n >>Select Choice  : ");
-                menuChoice = Console.ReadLine();
-                string choiceCaps = menuChoice.ToUpper();
+                Console.Clear();
+                MenuCategory(category);
+                Console.Write("Select Category: ");
+                category = Convert.ToInt32(Console.ReadLine());
+
+              
+                while(category < 1 || category > 3)
+                {
+                    Console.WriteLine("Invalid Input Try Again.");
+
+                    Console.Write("Select Category: ");
+                    category = Convert.ToInt32(Console.ReadLine());
+                }
+                if (category == 1)
+                {
+                    DisplayComboMealMenu(comboMeal);
+                    Console.Write("\n\n >>Select Combo Meal  : ");
+                    meal = Console.ReadLine();
+                    meal = meal.ToUpper();
+                    while(meal != "C1" && meal != "C2" && meal != "C3" && meal != "C4" && meal != "C5")
+                    {
+                        Console.WriteLine("Invalid Input!");
+                        Console.Write("\n\n >>Select Combo Meal  : ");
+                        meal = Console.ReadLine();
+                    }
+                }
+                if (category == 2)
+                {
+                    DisplayDrinksMenu(drinks);
+                    Console.Write("\n\n >>Select Drinks  : ");
+                    Drinks = Console.ReadLine();
+                    Drinks = Drinks.ToUpper();
+                    while (Drinks != "D1" && Drinks != "D2" && Drinks != "D3" && Drinks != "D4" && Drinks != "D5")
+                    {
+                        Console.WriteLine("Invalid Input!");
+                        Console.Write("\n\n >>Select Drinks  : ");
+                        Drinks = Console.ReadLine();
+                    }
+                }
+                if (category == 3)
+                {
+                    DisplayDessertMenu(dessert);
+                    Console.Write("\n\n >>Select Dessert  : ");
+                    Dessert = Console.ReadLine();
+                    Dessert = Dessert.ToUpper();
+                    while (Dessert != "E1" && Dessert != "E2" && Dessert != "E3" && Dessert != "E4" && Dessert != "E5")
+                    {
+                        Console.WriteLine("Invalid Input!");
+                        Console.Write("\n\n >>Select Dessert  : ");
+                        Dessert = Console.ReadLine();
+                    }
+                }
 
                 // Check food
-                food = CheckFood(menuChoice, comboMeal, drinks, dessert);
+                food = CheckFood(meal,Drinks,Dessert, comboMeal, drinks, dessert);
 
                 // Check item price based on the code
-                double itemPrice = CheckItemPrice(menuChoice);
-
-                if (itemPrice > 0)
+                double itemPrice = CheckItemPrice(meal,Drinks,Dessert);
+                
+                if (food != "")
                 {
                     while (true)
                     {
@@ -140,9 +196,12 @@ namespace PROJECT
                     total += itemTotal;
 
                     Console.WriteLine("\n\t Total: " + total);
-
+                    string order = meal;
+                    order = Drinks;
+                    order = Dessert;
                     // Save the order
-                    saveOrder[saveIndex, 0] = choiceCaps;
+
+                    saveOrder[saveIndex, 0] = order;
                     saveOrder[saveIndex, 1] = food;
                     saveOrder[saveIndex, 2] = Convert.ToString(itemPrice);
                     saveOrder[saveIndex, 3] = Convert.ToString(quantity);
@@ -214,32 +273,45 @@ namespace PROJECT
                     orderNumber++;
                 }
             }
+            NewOrder(saveOrder, ref saveIndex, ref orderNumber);
+           
+        }
 
+        public static void NewOrder(string[,] saveOrder, ref int saveIndex, ref int orderNumber)
+        {
             while (true)
             {
-                Console.Write("\nBack to Main Menu[Y/N]: ");
+                Console.Write("\n Do you want to order again[Y/N]: ");
                 string back = Console.ReadLine();
 
                 while (back != "Y" && back != "y" && back != "N" && back != "n")
                 {
                     Console.WriteLine("Invalid Input Try Again.");
-                    Console.Write("\nBack to Main Menu[Y/N]: ");
+                    Console.Write("\n Do you want to order again[Y/N]: ");
                     back = Console.ReadLine();
                 }
 
                 if (back == "Y" || back == "y")
                 {
                     Console.Clear();
-                    MenuOption(saveOrder, ref saveIndex, ref orderNumber);
+                    CashieringTransaction(saveOrder, ref saveIndex, ref orderNumber);
                 }
                 else
                 {
-                    break;
+                    MenuOption(saveOrder, ref saveIndex, ref orderNumber);
+                        
                 }
             }
         }
+        public static void MenuCategory(int select)
+        {
+            Console.WriteLine("\nCategory");
+            Console.WriteLine("[1] Combo Meal");
+            Console.WriteLine("[2] Drinks");
+            Console.WriteLine("[3] Dessert");
 
-        public static void DisplayFoodRushMenu(string[,] comboMeal, string[,] drinks, string[,] dessert)
+        }
+        public static void DisplayComboMealMenu(string[,] comboMeal)
         {
             Console.WriteLine("===============================================================");
             Console.WriteLine("|                       FoodRush MENU                         |");
@@ -251,68 +323,82 @@ namespace PROJECT
             {
                 Console.WriteLine("|{0} | {1,-19}  | {2,-7} |", comboMeal[i, 0], comboMeal[i, 1], comboMeal[i, 2]);
             }
-
-            Console.WriteLine("===============================================================");
-            Console.WriteLine("|  Code  |                  Drinks                  |  Price  |");
-            Console.WriteLine("---------------------------------------------------------------");
-
-            for (int i = 0; i < drinks.GetLength(0); i++) // Fixed drinks loop
-            {
-                Console.WriteLine("|{0} | {1,-19}  | {2,-7} |", drinks[i, 0], drinks[i, 1], drinks[i, 2]);
-            }
-
-            Console.WriteLine("===============================================================");
-            Console.WriteLine("|  Code  |                  Dessert                 |  Price  |");
-            Console.WriteLine("---------------------------------------------------------------");
-
-            for (int i = 0; i < dessert.GetLength(0); i++) // Fixed dessert loop
-            {
-                Console.WriteLine("|{0} | {1,-19}  | {2,-7} |", dessert[i, 0], dessert[i, 1], dessert[i, 2]);
-            }
-
-            Console.WriteLine("===============================================================");
         }
 
-        public static double CheckItemPrice(string menuChoice)
+        public static void DisplayDrinksMenu(string[,] Drinks)
         {
-            switch (menuChoice.ToUpper())
+            Console.WriteLine("===============================================================");
+            Console.WriteLine("|                       FoodRush MENU                         |");
+            Console.WriteLine("===============================================================");
+            Console.WriteLine("|  Code  |                Combo Meal                |  Price  |");
+            Console.WriteLine("---------------------------------------------------------------");
+
+            for (int i = 0; i < Drinks.GetLength(0); i++)
             {
-                case "C1": return 125;
-                case "C2": return 130;
-                case "C3": return 175;
-                case "C4": return 160;
-                case "C5": return 199;
-                case "D1": return 65;
-                case "D2": return 60;
-                case "D3": return 70;
-                case "D4": return 65;
-                case "D5": return 60;
-                case "E1": return 70;
-                case "E2": return 75;
-                case "E3": return 80;
-                case "E4": return 95;
-                case "E5": return 60;
+                Console.WriteLine("|{0} | {1,-19}  | {2,-7} |", Drinks[i, 0], Drinks[i, 1], Drinks[i, 2]);
+            }
+        }
+
+        public static void DisplayDessertMenu(string[,] Dessert)
+        {
+            Console.WriteLine("===============================================================");
+            Console.WriteLine("|                       FoodRush MENU                         |");
+            Console.WriteLine("===============================================================");
+            Console.WriteLine("|  Code  |                Combo Meal                |  Price  |");
+            Console.WriteLine("---------------------------------------------------------------");
+
+            for (int i = 0; i < Dessert.GetLength(0); i++)
+            {
+                Console.WriteLine("|{0} | {1,-19}  | {2,-7} |", Dessert[i, 0], Dessert[i, 1], Dessert[i, 2]);
+            }
+        }
+
+        public static double checkitemprice(string meal, string drinks, string dessert)
+        {
+            switch (menuchoice.toupper())
+            {
+                case "c1": return 125;
+                case "c2": return 130;
+                case "c3": return 175;
+                case "c4": return 160;
+                case "c5": return 199;
+                case "d1": return 65;
+                case "d2": return 60;
+                case "d3": return 70;
+                case "d4": return 65;
+                case "d5": return 60;
+                case "e1": return 70;
+                case "e2": return 75;
+                case "e3": return 80;
+                case "e4": return 95;
+                case "e5": return 60;
                 default:
-                    Console.WriteLine("Invalid item code.");
+                    Console.WriteLine("invalid item code.");
                     return 0;
             }
         }
 
-        public static string CheckFood(string menuChoice, string[,] comboMeal, string[,] drinks, string[,] dessert)
+        public static string CheckFood( string meal,string Drinks, string Dessert, string[,] comboMeal, string[,] drinks, string[,] dessert)
         {
             string food = "";
-            switch (menuChoice.ToUpper())
+            switch (meal.ToUpper())
             {
                 case "C1": return comboMeal[0, 1];
                 case "C2": return comboMeal[1, 1];
                 case "C3": return comboMeal[2, 1];
                 case "C4": return comboMeal[3, 1];
                 case "C5": return comboMeal[4, 1];
+
+            
+
                 case "D1": return drinks[0, 1];
                 case "D2": return drinks[1, 1];
                 case "D3": return drinks[2, 1];
                 case "D4": return drinks[3, 1];
                 case "D5": return drinks[4, 1];
+   
+
+            
                 case "E1": return dessert[0, 1];
                 case "E2": return dessert[1, 1];
                 case "E3": return dessert[2, 1];
