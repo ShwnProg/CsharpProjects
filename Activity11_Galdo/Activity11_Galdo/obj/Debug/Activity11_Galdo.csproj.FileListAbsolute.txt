@@ -1,0 +1,6 @@
+C:\Users\Lab3-28\Desktop\Activity11_Galdo\Activity11_Galdo\bin\Debug\Activity11_Galdo.exe.config
+C:\Users\Lab3-28\Desktop\Activity11_Galdo\Activity11_Galdo\bin\Debug\Activity11_Galdo.exe
+C:\Users\Lab3-28\Desktop\Activity11_Galdo\Activity11_Galdo\bin\Debug\Activity11_Galdo.pdb
+C:\Users\Lab3-28\Desktop\Activity11_Galdo\Activity11_Galdo\obj\Debug\Activity11_Galdo.csprojResolveAssemblyReference.cache
+C:\Users\Lab3-28\Desktop\Activity11_Galdo\Activity11_Galdo\obj\Debug\Activity11_Galdo.exe
+C:\Users\Lab3-28\Desktop\Activity11_Galdo\Activity11_Galdo\obj\Debug\Activity11_Galdo.pdb
