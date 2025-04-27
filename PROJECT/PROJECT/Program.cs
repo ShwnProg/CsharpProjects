@@ -1,191 +1,333 @@
-// Cashiering System using C# (Beginner-friendly version - local variables, basic placeholders only)
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CashieringSystem
+namespace FoodRush_CashieringSystem_Project_Final
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
-            while (true)
+
+            Console.WriteLine("\n\t\t\t\t FoodRush Cashiering System");
+            Console.WriteLine("\t\t\t---------------------------------------------");
+            SecurityLoginAccess();
+
+        }
+        public static void SecurityLoginAccess()
+        {
+            bool isAccess = true;
+            Console.WriteLine("\n\t\t\t\t\t LOGIN");
+
+            while (isAccess)
             {
-                Console.Clear();
-                Console.WriteLine("LOGIN");
-                Console.Write("Enter username: ");
-                string user = Console.ReadLine();
-                Console.Write("Enter password: ");
-                string pass = Console.ReadLine();
-                if (user == "admin" && pass == "1234")
-                    MainMenu();
+                Console.Write("\n\t\t\t Enter username: ");
+                string username = Console.ReadLine();
+
+                Console.Write("\n\t\t\t Enter password: ");
+                string password = Console.ReadLine();
+
+                if (username == "admin" && password == "admin123")
+                {
+                    isAccess = false;
+                    //Main Menu
+
+                    MainMenuOption();
+                }
                 else
                 {
-                    Console.WriteLine("Invalid credentials!");
+                    Console.WriteLine("\n\t\tInvalid username or password. Please try again.");
                     Console.ReadKey();
                 }
             }
         }
 
-        static void MainMenu()
+        public static void MainMenuOption()
         {
-            string[,] orders = new string[100, 6];
+            string[,] orders = new string[100, 9];
             int orderIndex = 0;
-            int orderNumber = 1001;
-
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine("MAIN MENU");
-                Console.WriteLine("1. Cashiering Transaction");
-                Console.WriteLine("2. View Customer Order");
-                Console.WriteLine("3. View Sales");
-                Console.WriteLine("4. Exit");
-                Console.Write("Select option: ");
-                string opt = Console.ReadLine();
-
-                switch (opt)
-                {
-                    case "1": Cashiering(ref orders, ref orderIndex, ref orderNumber); break;
-                    case "2": ViewCustomerOrder(orders, orderIndex); break;
-                    case "3": ViewSales(orders, orderIndex); break;
-                    case "4": return;
-                    default: Console.WriteLine("Invalid option"); Console.ReadKey(); break;
-                }
-            }
-        }
-
-        static void DisplayMenu(string[] items, double[] prices)
-        {
-            Console.WriteLine("\n--- MENU ---");
-            for (int i = 0; i < items.Length; i++)
-            {
-                Console.WriteLine("{0}. {1} - {2}", (i + 1), items[i], prices[i]);
-            }
-        }
-
-        static void Cashiering(ref string[,] orders, ref int orderIndex, ref int orderNumber)
-        {
-            string[] items = {
-                "Spaghetti", "Burger", "Chicken", "Pizza", "Steak",
-                "Coke", "Sprite", "Water", "Iced Tea", "Juice",
-                "Cake", "Ice Cream", "Pie", "Donut", "Brownie"
-            };
-            double[] prices = {
-                100, 80, 120, 150, 200,
-                30, 30, 20, 35, 40,
-                60, 50, 45, 25, 55
-            };
-
-            bool anotherTransaction;
+            int orderNumber = 1;
+            bool inputAgain = true;
             do
             {
-                double total = 0;
-                string today = DateTime.Now.ToShortDateString();
-                int currentOrder = orderNumber++;
-
-                do
+                try
                 {
                     Console.Clear();
-                    DisplayMenu(items, prices);
-                    Console.Write("Enter item number: ");
-                    int item = int.Parse(Console.ReadLine());
-                    Console.Write("Enter quantity: ");
-                    int qty = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\n\t\t\t\t        FoodRush Main Menu");
+                    Console.WriteLine("\t\t\t---------------------------------------------");
+                    Console.WriteLine("\n\t\t\t 1. Cashiering Transaction");
+                    Console.WriteLine("\t\t\t 2. View Customer Order");
+                    Console.WriteLine("\t\t\t 3. View Sales");
+                    Console.Write("\n\t\t\t Select an option: ");
+                    string userOpt = Console.ReadLine();
 
-                    string name = items[item - 1];
-                    double price = prices[item - 1];
-                    double itemTotal = price * qty;
-                    total += itemTotal;
-
-                    orders[orderIndex, 0] = currentOrder.ToString();
-                    orders[orderIndex, 1] = today;
-                    orders[orderIndex, 2] = name;
-                    orders[orderIndex, 3] = qty.ToString();
-                    orders[orderIndex, 4] = price.ToString();
-                    orders[orderIndex, 5] = itemTotal.ToString();
-                    orderIndex++;
-
-                    Console.WriteLine("\nCurrent Total: {0}", total);
-                    Console.Write("Add another item? [Y/N]: ");
-                } while (Console.ReadLine().ToUpper() == "Y");
-
-                Console.Clear();
-                Console.WriteLine("ORDER SUMMARY");
-                Console.WriteLine("Order Number: {0}", currentOrder);
-                Console.WriteLine("Date: {0}", today);
-                Console.WriteLine("{0,-15} {1,-10} {2,-10} {3,-10}", "Item", "Qty", "Price", "Total");
-                for (int i = 0; i < orderIndex; i++)
-                {
-                    if (orders[i, 0] == currentOrder.ToString())
+                    if (userOpt == "1")
                     {
-                        Console.WriteLine("{0,-15} {1,-10} {2,-10} {3,-10}", orders[i, 2], orders[i, 3], orders[i, 4], orders[i, 5]);
+                        //Cashiering System
+                        Console.Clear();
+                        FoodRushCashieringSystem(orders, orderIndex, orderNumber);
+                    }
+                    if (userOpt == "2")
+                    {
+                        // View Customer Order
+                    }
+                    if (userOpt == "3")
+                    {
+                        // View Sales
                     }
                 }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("\n\t\t" + ex.Message);
+                    Console.WriteLine("\n\t\t\t ---------------------------------------");
+                }
+                catch (IndexOutOfRangeException limit)
+                {
+                    Console.WriteLine("\n\t\t" + limit.Message);
+                    Console.WriteLine("\n\t\t\t ---------------------------------------");
+                }
+                finally
+                {
+                    Console.Write("\n\t\t\t Do you want to continue? (Y/N): ");
+                    string continueOpt = Console.ReadLine();
 
-                Console.WriteLine("\nTotal Amount: {0}", total);
-                Console.Write("Enter cash: ");
-                double cash = double.Parse(Console.ReadLine());
-                double change = cash - total;
-                Console.WriteLine("Change: {0}", change);
+                    while (continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
+                    {
+                        Console.Write("\n\t\t\t Invalid input. Please enter Y or N: ");
+                        continueOpt = Console.ReadLine();
+                    }
+                    if (continueOpt == "Y" || continueOpt == "y")
+                    {
+                        inputAgain = true;
+                    }
+                    else if (continueOpt == "N" || continueOpt == "n")
+                    {
+                        inputAgain = false;
+                        Console.WriteLine("\n\t\t\t Thank you for using FoodRush Cashiering System!");
+                        Console.WriteLine("\t\t\t---------------------------------------------");
+                        Console.ReadKey();
+                    }
+                }
+            } while (inputAgain);
+        }
+        public static void DisplayFoodRushMenu(string[,] order)
+        {
 
-                Console.Write("\nAnother transaction? [Y/N]: ");
-                anotherTransaction = Console.ReadLine().ToUpper() == "Y";
+            // Combo Meal Code Number
+            order[0, 0] = "[C1]";
+            order[1, 0] = "[C2]";
+            order[2, 0] = "[C3]";
+            order[3, 0] = "[C4]";
+            order[4, 0] = "[C5]";
 
-            } while (anotherTransaction);
+            // Combo Meal Food
+            order[0, 1] = "Classic Ham Burger + Fries                   ";
+            order[1, 1] = "Chicken Nuggets w/rice + Double Cheese Burger";
+            order[2, 1] = "Chicken Burger + Spaghetti                   ";
+            order[3, 1] = "Pork Steak w/rice + Class Ham Burger         ";
+            order[4, 1] = "Fish Fillet w/rice + Rice + Mango Juice      ";
+
+            // Combo Meal Price
+            order[0, 2] = "159.00";
+            order[1, 2] = "199.00";
+            order[2, 2] = "179.00";
+            order[3, 2] = "189.00";
+            order[4, 2] = "169.00";
+
+            // Drinks Code Number
+            order[5, 0] = "[D1]";
+            order[6, 0] = "[D2]";
+            order[7, 0] = "[D3]";
+            order[8, 0] = "[D4]";
+            order[9, 0] = "[D5]";
+
+            // Drinks Name
+            order[5, 1] = "Iced Tea                                     ";
+            order[6, 1] = "Soft Drinks                                  ";
+            order[7, 1] = "Bottled Water                                ";
+            order[8, 1] = "Mango Juice                                  ";
+            order[9, 1] = "Coffee                                       ";
+
+            // Drinks Price
+            order[5, 2] = "39.00";
+            order[6, 2] = "49.00";
+            order[7, 2] = "29.00";
+            order[8, 2] = "59.00";
+            order[9, 2] = "45.00";
+
+            // Desserts Code Number
+            order[10, 0] = "[DE1]";
+            order[11, 0] = "[DE2]";
+            order[12, 0] = "[DE3]";
+            order[13, 0] = "[DE4]";
+            order[14, 0] = "[DE5]";
+
+            // Desserts Name
+            order[10, 1] = "Ice Cream                                    ";
+            order[11, 1] = "Brownies                                     ";
+            order[12, 1] = "Cheesecake                                   ";
+            order[13, 1] = "Fruit Salad                                  ";
+            order[14, 1] = "Leche Flan                                   ";
+
+            // Desserts Price
+            order[10, 2] = "59.00";
+            order[11, 2] = "69.00";
+            order[12, 2] = "89.00";
+            order[13, 2] = "79.00";
+            order[14, 2] = "99.00";
+            Console.WriteLine("|*------------------------------------FoodRush Menu--------------------------------*|");
+
+            // Combo Meals
+            Console.WriteLine("\n   Menu Code      Food Name                                        Price  ");
+            Console.WriteLine(" ------------------------------------------------------------------------------");
+            Console.WriteLine("\n [Combo Meals]---------------------------------------------------------\n"); ;
+
+
+            for (int i = 0; i < 5; i++) // Loop for Combo Meals
+            {
+                Console.WriteLine("    {0,-5}       {1,-30}   {2,7}", order[i, 0],
+                                                                      order[i, 1],
+                                                                      order[i, 2]);
+            }
+
+            // Drinks
+            Console.WriteLine("\n [Drinks]---------------------------------------------------------------\n");
+
+            for (int i = 5; i < 10; i++) // Loop for Drinks
+            {
+                Console.WriteLine("    {0,-5}       {1,-30}   {2,7}", order[i, 0],
+                                                                      order[i, 1],
+                                                                      order[i, 2]);
+            }
+
+            // Desserts
+            Console.WriteLine("\n [Desserts]--------------------------------------------------------------\n");
+            for (int i = 10; i < 15; i++) // Loop for Desserts
+            {
+                Console.WriteLine("    {0,-5}       {1,-30}   {2,7}", order[i, 0],
+                                                                      order[i, 1],
+                                                                      order[i, 2]);
+            }
+            Console.WriteLine("\n ------------------------------------------------------------------------------");
+
+
+        }
+        public static void FoodRushCashieringSystem(string[,] order, int orderIndex, int orderNumber)
+        {
+            double total = 0;
+            string food = "";
+            int currentOrder = orderNumber;
+            orderNumber++;
+            bool orderAgain = true;
+            Console.WriteLine("Cashiering Transaction");
+            DisplayFoodRushMenu(order);
+
+            do
+            {
+                //Console.Clear();
+
+                Console.Write("Enter item number : ");
+                string itemNumber = Console.ReadLine();
+                food = CheckFood(itemNumber, order);
+                double price = CheckOrder(itemNumber);
+
+                if(price != 0)
+                {
+                    Console.Write("Enter quantity : ");
+                    int quantity = int.Parse(Console.ReadLine());
+
+                    total += price * quantity;
+                    Console.WriteLine(total);
+
+                    order[orderIndex, 0] = Convert.ToString(currentOrder);
+                    order[orderIndex, 1] = itemNumber;
+                    order[orderIndex, 2] = food;
+                    order[orderIndex, 3] = Convert.ToString(price);
+                    order[orderIndex, 4] = Convert.ToString(quantity);
+                    order[orderIndex, 5] = Convert.ToString(total);
+                    orderIndex++;
+                }
+                Console.Write("Do you want to order again? (Y/N): ");
+                string continueOpt = Console.ReadLine();
+
+                while(continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
+                {
+                    Console.Write("\n\t\t\t Invalid input. Please enter Y or N: ");
+                    continueOpt = Console.ReadLine();
+                }
+                if(continueOpt == "Y" || continueOpt == "y")
+                {
+                    orderAgain = true;
+                }
+                else 
+                {
+                    orderAgain = false;
+                    //MainMenuOption();
+                }
+
+            } while (orderAgain);
         }
 
-        static void ViewCustomerOrder(string[,] orders, int orderIndex)
+        public static double CheckOrder(string orderNumber)
         {
-            Console.Clear();
-            Console.Write("Enter Order Number: ");
-            string orderNum = Console.ReadLine();
-            Console.Write("Enter Date (MM/DD/YYYY): ");
-            string date = Console.ReadLine();
-            bool found = false;
-            double totalAmount = 0;
+            double price = 0;
+            orderNumber = orderNumber.ToUpper();
 
-            Console.WriteLine("\nORDER DETAILS");
-            Console.WriteLine("{0,-15} {1,-10} {2,-10} {3,-10}", "Item", "Qty", "Price", "Total");
-            for (int i = 0; i < orderIndex; i++)
+            switch (orderNumber)
             {
-                if (orders[i, 0] == orderNum && orders[i, 1] == date)
+                case "C1":
+                    return price = 159.00;
+                case "C2":
+                    return price = 199.00;
+                case "C3":
+                    return price = 179.00;
+                case "C4":
+                    return price = 189.00;
+                case "C5":
+                    return price = 169.00;
+                case "D1":
+                    return price = 39.00;
+                case "D2":
+                    return price = 49.00;
+                case "D3":
+                    return price = 29.00;
+                case "D4":
+                    return price = 59.00;
+                case "D5":
+                    return price = 45.00;
+                case "DE1":
+                    return price = 59.00;
+                case "DE2":
+                    return price = 69.00;
+                case "DE3":
+                    return price = 89.00;
+                case "DE4":
+                    return price = 79.00;
+                case "DE5":
+                    return price = 99.00;
+                default:
+                    Console.WriteLine("\n\t\t\t Invalid item number. Please try again.");
+                    return 0;
+            }
+        }
+        public static string CheckFood(string orderNumber, string[,] order)
+        {
+            string food = "";
+            orderNumber = orderNumber.ToUpper();
+
+            for (int i = 0; i < order.GetLength(0); i++)
+            {
+                if (order[i, 0] == orderNumber) 
                 {
-                    found = true;
-                    Console.WriteLine("{0,-15} {1,-10} {2,-10} {3,-10}", orders[i, 2], orders[i, 3], orders[i, 4], orders[i, 5]);
-                    totalAmount += double.Parse(orders[i, 5]);
+                    food = order[i, 1];
+                    break;
                 }
             }
 
-            if (found)
-            {
-                Console.WriteLine("\nTotal Amount: {0}", totalAmount);
-            }
-            else
-            {
-                Console.WriteLine("Order not found.");
-            }
-            Console.ReadKey();
-        }
-
-        static void ViewSales(string[,] orders, int orderIndex)
-        {
-            Console.Clear();
-            Console.Write("Enter Date (MM/DD/YYYY): ");
-            string date = Console.ReadLine();
-            double totalSales = 0;
-
-            Console.WriteLine("\nSALES REPORT for Date: {0}", date);
-            Console.WriteLine("{0,-15} {1,-10} {2,-10}", "Item", "Qty", "Total");
-            for (int i = 0; i < orderIndex; i++)
-            {
-                if (orders[i, 1] == date)
-                {
-                    Console.WriteLine("{0,-15} {1,-10} {2,-10}", orders[i, 2], orders[i, 3], orders[i, 5]);
-                    totalSales += double.Parse(orders[i, 5]);
-                }
-            }
-
-            Console.WriteLine("\nTotal Sales for {0}: {1}", date, totalSales);
-            Console.ReadKey();
+            return food;
         }
     }
 }
