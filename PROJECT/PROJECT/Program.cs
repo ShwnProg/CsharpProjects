@@ -294,7 +294,6 @@ namespace FoodRush_CashieringSystem_Project_Final
         public static string CheckFood(string orderNumber, string[,] order)
         {
             string food = "";
-            bool ValidOrder = false;
             orderNumber = orderNumber.ToUpper();
             orderNumber = "[" + orderNumber + "]";
             for (int i = 0; i < order.GetLength(0); i++)
@@ -302,7 +301,6 @@ namespace FoodRush_CashieringSystem_Project_Final
                 if (order[i, 0] == orderNumber)
                 {
                     food = order[i, 1];
-                    ValidOrder = true;
                 }
             }
             return food;
