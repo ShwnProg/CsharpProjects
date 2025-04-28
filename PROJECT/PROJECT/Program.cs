@@ -113,9 +113,79 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
             } while (inputAgain);
         }
-        public static void DisplayFoodRushMenu(string[,] order)
+       
+        public static void FoodRushCashieringSystem(string[,] order, int orderIndex, int orderNumber)
         {
+            double total = 0;
+            string food = "";
+            int currentOrder = orderNumber;
+            orderNumber++;
+            bool orderAgain = true;
+            InitializeFoodData(order);
+            Console.WriteLine("Cashiering Transaction");
+            DisplayFoodRushMenu(order);
 
+            do
+            {
+                //Console.Clear();
+
+                Console.Write("Enter item number : ");
+                string itemNumber = Console.ReadLine();
+                food = CheckFood(itemNumber, order);
+                double price = CheckOrder(itemNumber);
+
+                if (price != 0 && food != "")
+                {
+                    Console.Write("Enter quantity : ");
+                    int quantity = int.Parse(Console.ReadLine());
+
+                    total += price * quantity;
+                    Console.WriteLine(total);
+
+                    order[orderIndex, 3] = Convert.ToString(currentOrder);
+                    order[orderIndex, 4] = itemNumber;
+                    order[orderIndex, 5] = food;
+                    order[orderIndex, 6] = Convert.ToString(price);
+                    order[orderIndex, 7] = Convert.ToString(quantity);
+                    order[orderIndex, 8] = Convert.ToString(total);
+                    orderIndex++;
+                }
+                Console.Write("Do you want to order again? (Y/N): ");
+                string continueOpt = Console.ReadLine();
+
+                while (continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
+                {
+                    Console.Write("\n\t\t\t Invalid input. Please enter Y or N: ");
+                    continueOpt = Console.ReadLine();
+                }
+                if (continueOpt == "Y" || continueOpt == "y")
+                {
+                    orderAgain = true;
+                }
+                else
+                {
+                    orderAgain = false;
+                    //MainMenuOption();
+                }
+
+            } while (orderAgain);
+
+            DisplaySummaryofOrder(order, orderIndex);
+        }
+        public static void DisplaySummaryofOrder(string[,] orders, int orderIndex)
+        {
+            Console.WriteLine("Order Summary");
+            Console.WriteLine("-------------------------------------------------------------------------");
+            Console.WriteLine("|  Item Number  |         Food          |    Price     |    Quantity    |");
+            Console.WriteLine("-------------------------------------------------------------------------");
+
+            for (int i = 0; i < orderIndex; i++)
+            {
+                Console.WriteLine("|      {0,-8} | {1,-16} | {2,-6} | {3,-8} |", orders[i, 4], orders[i, 5], orders[i, 6], orders[i, 7]);
+            }
+        }
+        public static void InitializeFoodData(string[,] order)
+        {
             // Combo Meal Code Number
             order[0, 0] = "[C1]";
             order[1, 0] = "[C2]";
@@ -178,6 +248,11 @@ namespace FoodRush_CashieringSystem_Project_Final
             order[12, 2] = "89.00";
             order[13, 2] = "79.00";
             order[14, 2] = "99.00";
+        }
+        public static void DisplayFoodRushMenu(string[,] order)
+        {
+
+          
             Console.WriteLine("|*------------------------------------FoodRush Menu--------------------------------*|");
 
             // Combo Meals
@@ -215,62 +290,6 @@ namespace FoodRush_CashieringSystem_Project_Final
 
 
         }
-        public static void FoodRushCashieringSystem(string[,] order, int orderIndex, int orderNumber)
-        {
-            double total = 0;
-            string food = "";
-            int currentOrder = orderNumber;
-            orderNumber++;
-            bool orderAgain = true;
-            Console.WriteLine("Cashiering Transaction");
-            DisplayFoodRushMenu(order);
-
-            do
-            {
-                //Console.Clear();
-
-                Console.Write("Enter item number : ");
-                string itemNumber = Console.ReadLine();
-                food = CheckFood(itemNumber, order);
-                double price = CheckOrder(itemNumber);
-
-                if(price != 0)
-                {
-                    Console.Write("Enter quantity : ");
-                    int quantity = int.Parse(Console.ReadLine());
-
-                    total += price * quantity;
-                    Console.WriteLine(total);
-
-                    order[orderIndex, 0] = Convert.ToString(currentOrder);
-                    order[orderIndex, 1] = itemNumber;
-                    order[orderIndex, 2] = food;
-                    order[orderIndex, 3] = Convert.ToString(price);
-                    order[orderIndex, 4] = Convert.ToString(quantity);
-                    order[orderIndex, 5] = Convert.ToString(total);
-                    orderIndex++;
-                }
-                Console.Write("Do you want to order again? (Y/N): ");
-                string continueOpt = Console.ReadLine();
-
-                while(continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
-                {
-                    Console.Write("\n\t\t\t Invalid input. Please enter Y or N: ");
-                    continueOpt = Console.ReadLine();
-                }
-                if(continueOpt == "Y" || continueOpt == "y")
-                {
-                    orderAgain = true;
-                }
-                else 
-                {
-                    orderAgain = false;
-                    //MainMenuOption();
-                }
-
-            } while (orderAgain);
-        }
-
         public static double CheckOrder(string orderNumber)
         {
             double price = 0;
@@ -320,7 +339,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
             for (int i = 0; i < order.GetLength(0); i++)
             {
-                if (order[i, 0] == orderNumber) 
+                if (order[i, 0] == orderNumber)
                 {
                     food = order[i, 1];
                     break;
