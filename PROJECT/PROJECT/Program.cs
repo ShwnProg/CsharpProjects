@@ -68,7 +68,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                     {
                         //Cashiering System
                         Console.Clear();
-                        FoodRushCashieringSystem(orders, orderIndex, orderNumber);
+                        FoodRushCashieringSystem(orders,ref orderIndex, ref orderNumber);
                     }
                     if (userOpt == "2")
                     {
@@ -114,7 +114,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             } while (inputAgain);
         }
 
-        public static void FoodRushCashieringSystem(string[,] order, int orderIndex, int orderNumber)
+        public static void FoodRushCashieringSystem(string[,] order, ref int orderIndex,ref int orderNumber)
         {
             double total = 0;
             string food = "";
@@ -191,10 +191,10 @@ namespace FoodRush_CashieringSystem_Project_Final
             {
                 Console.Clear();
                 // Display summary of order
-                DisplaySummaryofOrder(order, orderIndex, total);
+                DisplaySummaryofOrder(order, ref orderIndex, total);
             }
         }
-        public static void DisplaySummaryofOrder(string[,] orders, int orderIndex, double total)
+        public static void DisplaySummaryofOrder(string[,] orders, ref int orderIndex, double total)
         {
             Console.WriteLine("\n|--------------------------------------*Order Summary*------------------------------------------|\n");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
@@ -216,7 +216,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             order[0, 0] = "[C1]";   order[0, 1] = "Classic Ham Burger + Fries                   "; order[0, 2] = "159.00";
             order[1, 0] = "[C2]";   order[1, 1] = "Chicken Nuggets w/rice + Double Cheese Burger"; order[1, 2] = "199.00";
             order[2, 0] = "[C3]";   order[2, 1] = "Chicken Burger + Spaghetti                   "; order[2, 2] = "179.00";
-            order[3, 0] = "[C4]";   order[3, 1] = "Pork Steak w/rice + Class Ham Burger         "; order[3, 2] = "189.00";
+            order[3, 0] = "[C4]";   order[3, 1] = "Pork Steak w/rice + Classic Ham Burger       "; order[3, 2] = "189.00";
             order[4, 0] = "[C5]";   order[4, 1] = "Fish Fillet w/rice + Rice + Mango Juice      "; order[4, 2] = "169.00";
 
             // Drinks               // drinks category                                             //drinks prices
