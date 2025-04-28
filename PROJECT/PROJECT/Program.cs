@@ -123,25 +123,35 @@ namespace FoodRush_CashieringSystem_Project_Final
             bool orderAgain = true;
             InitializeFoodData(order);
             Console.WriteLine("Cashiering Transaction");
-            DisplayFoodRushMenu(order);
 
             do
             {
-                //Console.Clear();
+                Console.Clear(); 
 
-                Console.Write("Enter item number : ");
+                // Display Menu
+                DisplayFoodRushMenu(order);
+
+                Console.Write("\n Enter item number : ");
                 string itemNumber = Console.ReadLine();
+
+                // Check food
                 food = CheckFood(itemNumber, order);
+
+                // Check price order
                 double price = CheckOrder(itemNumber);
 
                 if (price != 0 && food != "")
                 {
-                    Console.Write("Enter quantity : ");
+                    Console.Write("\n Enter quantity : ");
                     int quantity = int.Parse(Console.ReadLine());
 
                     total += price * quantity;
-                    Console.WriteLine(total);
+                    // Display Total Amount of order
+                    Console.WriteLine("\n =0=0=0=0=0=0=0=0=");
+                    Console.WriteLine("  | Total : " + total +" |");
+                    Console.WriteLine(" =0=0=0=0=0=0=0=0=");
 
+                    //save data
                     order[orderIndex, 3] = Convert.ToString(currentOrder);
                     order[orderIndex, 4] = itemNumber;
                     order[orderIndex, 5] = food;
@@ -150,7 +160,9 @@ namespace FoodRush_CashieringSystem_Project_Final
                     order[orderIndex, 8] = Convert.ToString(total);
                     orderIndex++;
                 }
-                Console.Write("Do you want to order again? (Y/N): ");
+
+                // Ask to order again
+                Console.Write("\n\n\t Do you want to order again? (Y/N): ");
                 string continueOpt = Console.ReadLine();
 
                 while (continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
@@ -165,24 +177,28 @@ namespace FoodRush_CashieringSystem_Project_Final
                 else
                 {
                     orderAgain = false;
-                    //MainMenuOption();
                 }
 
             } while (orderAgain);
-
-            DisplaySummaryofOrder(order, orderIndex);
+            Console.Clear();
+            // Display summary of order
+            DisplaySummaryofOrder(order, orderIndex,total);
         }
-        public static void DisplaySummaryofOrder(string[,] orders, int orderIndex)
+        public static void DisplaySummaryofOrder(string[,] orders, int orderIndex,double total)
         {
-            Console.WriteLine("Order Summary");
-            Console.WriteLine("-------------------------------------------------------------------------");
-            Console.WriteLine("|  Item Number  |         Food          |    Price     |    Quantity    |");
-            Console.WriteLine("-------------------------------------------------------------------------");
+            Console.WriteLine("\n|--------------------------------------*Order Summary*------------------------------------------|\n");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("|  Item Number  |         Food                                  |    Price     |    Quantity    |");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
 
             for (int i = 0; i < orderIndex; i++)
             {
-                Console.WriteLine("|      {0,-8} | {1,-16} | {2,-6} | {3,-8} |", orders[i, 4], orders[i, 5], orders[i, 6], orders[i, 7]);
+                Console.WriteLine("|      {0,-8} | {1,-16} |     {2,-5}PHP |        {3,-7} |", orders[i, 4], orders[i, 5], orders[i, 6], orders[i, 7]);
             }
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("Total Amount : {0,73} PHP    |", total); 
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+
         }
         public static void InitializeFoodData(string[,] order)
         {
@@ -336,7 +352,7 @@ namespace FoodRush_CashieringSystem_Project_Final
         {
             string food = "";
             orderNumber = orderNumber.ToUpper();
-
+            orderNumber = "[" + orderNumber + "]";
             for (int i = 0; i < order.GetLength(0); i++)
             {
                 if (order[i, 0] == orderNumber)
