@@ -113,7 +113,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
             } while (inputAgain);
         }
-       
+
         public static void FoodRushCashieringSystem(string[,] order, int orderIndex, int orderNumber)
         {
             double total = 0;
@@ -121,12 +121,12 @@ namespace FoodRush_CashieringSystem_Project_Final
             int currentOrder = orderNumber;
             orderNumber++;
             bool orderAgain = true;
+            bool validOrder = true;
             InitializeFoodData(order);
-            Console.WriteLine("Cashiering Transaction");
 
             do
             {
-                Console.Clear(); 
+                Console.Clear();
 
                 // Display Menu
                 DisplayFoodRushMenu(order);
@@ -138,7 +138,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 food = CheckFood(itemNumber, order);
 
                 // Check price order
-                double price = CheckOrder(itemNumber);
+                double price = CheckOrder(itemNumber,order);
 
                 if (price != 0 && food != "")
                 {
@@ -148,7 +148,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                     total += price * quantity;
                     // Display Total Amount of order
                     Console.WriteLine("\n =0=0=0=0=0=0=0=0=");
-                    Console.WriteLine("  | Total : " + total +" |");
+                    Console.WriteLine("  | Total : " + total + " |");
                     Console.WriteLine(" =0=0=0=0=0=0=0=0=");
 
                     //save data
@@ -159,10 +159,17 @@ namespace FoodRush_CashieringSystem_Project_Final
                     order[orderIndex, 7] = Convert.ToString(quantity);
                     order[orderIndex, 8] = Convert.ToString(total);
                     orderIndex++;
+
+                    validOrder = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Order Please Try Again!");
+                    validOrder = false;
                 }
 
-                // Ask to order again
-                Console.Write("\n\n\t Do you want to order again? (Y/N): ");
+                    // Ask to order again
+                    Console.Write("\n\n\t Do you want to order again? (Y/N): ");
                 string continueOpt = Console.ReadLine();
 
                 while (continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
@@ -180,11 +187,14 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
 
             } while (orderAgain);
-            Console.Clear();
-            // Display summary of order
-            DisplaySummaryofOrder(order, orderIndex,total);
+            if (validOrder == true)
+            {
+                Console.Clear();
+                // Display summary of order
+                DisplaySummaryofOrder(order, orderIndex, total);
+            }
         }
-        public static void DisplaySummaryofOrder(string[,] orders, int orderIndex,double total)
+        public static void DisplaySummaryofOrder(string[,] orders, int orderIndex, double total)
         {
             Console.WriteLine("\n|--------------------------------------*Order Summary*------------------------------------------|\n");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
@@ -196,79 +206,38 @@ namespace FoodRush_CashieringSystem_Project_Final
                 Console.WriteLine("|      {0,-8} | {1,-16} |     {2,-5}PHP |        {3,-7} |", orders[i, 4], orders[i, 5], orders[i, 6], orders[i, 7]);
             }
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
-            Console.WriteLine("Total Amount : {0,73} PHP    |", total); 
+            Console.WriteLine("Total Amount : {0,73} PHP    |", total);
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
 
         }
         public static void InitializeFoodData(string[,] order)
         {
-            // Combo Meal Code Number
-            order[0, 0] = "[C1]";
-            order[1, 0] = "[C2]";
-            order[2, 0] = "[C3]";
-            order[3, 0] = "[C4]";
-            order[4, 0] = "[C5]";
+            // Combo Meals          //meals category                                               //meals prices
+            order[0, 0] = "[C1]";   order[0, 1] = "Classic Ham Burger + Fries                   "; order[0, 2] = "159.00";
+            order[1, 0] = "[C2]";   order[1, 1] = "Chicken Nuggets w/rice + Double Cheese Burger"; order[1, 2] = "199.00";
+            order[2, 0] = "[C3]";   order[2, 1] = "Chicken Burger + Spaghetti                   "; order[2, 2] = "179.00";
+            order[3, 0] = "[C4]";   order[3, 1] = "Pork Steak w/rice + Class Ham Burger         "; order[3, 2] = "189.00";
+            order[4, 0] = "[C5]";   order[4, 1] = "Fish Fillet w/rice + Rice + Mango Juice      "; order[4, 2] = "169.00";
 
-            // Combo Meal Food
-            order[0, 1] = "Classic Ham Burger + Fries                   ";
-            order[1, 1] = "Chicken Nuggets w/rice + Double Cheese Burger";
-            order[2, 1] = "Chicken Burger + Spaghetti                   ";
-            order[3, 1] = "Pork Steak w/rice + Class Ham Burger         ";
-            order[4, 1] = "Fish Fillet w/rice + Rice + Mango Juice      ";
+            // Drinks               // drinks category                                             //drinks prices
+            order[5, 0] = "[D1]";   order[5, 1] = "Iced Tea                                     "; order[5, 2] = "39.00";
+            order[6, 0] = "[D2]";   order[6, 1] = "Soft Drinks                                  "; order[6, 2] = "49.00";
+            order[7, 0] = "[D3]";   order[7, 1] = "Bottled Water                                "; order[7, 2] = "29.00";
+            order[8, 0] = "[D4]";   order[8, 1] = "Mango Juice                                  "; order[8, 2] = "59.00";
+            order[9, 0] = "[D5]";   order[9, 1] = "Coffee                                       "; order[9, 2] = "45.00";
 
-            // Combo Meal Price
-            order[0, 2] = "159.00";
-            order[1, 2] = "199.00";
-            order[2, 2] = "179.00";
-            order[3, 2] = "189.00";
-            order[4, 2] = "169.00";
+            // Desserts             // dessert category                                          //dessert prices   
+            order[10, 0] = "[DE1]"; order[10, 1] = "Ice Cream                                    "; order[10, 2] = "59.00";
+            order[11, 0] = "[DE2]"; order[11, 1] = "Brownies                                     "; order[11, 2] = "69.00";
+            order[12, 0] = "[DE3]"; order[12, 1] = "Cheesecake                                   "; order[12, 2] = "89.00";
+            order[13, 0] = "[DE4]"; order[13, 1] = "Fruit Salad                                  "; order[13, 2] = "79.00";
+            order[14, 0] = "[DE5]"; order[14, 1] = "Leche Flan                                   "; order[14, 2] = "99.00";
 
-            // Drinks Code Number
-            order[5, 0] = "[D1]";
-            order[6, 0] = "[D2]";
-            order[7, 0] = "[D3]";
-            order[8, 0] = "[D4]";
-            order[9, 0] = "[D5]";
-
-            // Drinks Name
-            order[5, 1] = "Iced Tea                                     ";
-            order[6, 1] = "Soft Drinks                                  ";
-            order[7, 1] = "Bottled Water                                ";
-            order[8, 1] = "Mango Juice                                  ";
-            order[9, 1] = "Coffee                                       ";
-
-            // Drinks Price
-            order[5, 2] = "39.00";
-            order[6, 2] = "49.00";
-            order[7, 2] = "29.00";
-            order[8, 2] = "59.00";
-            order[9, 2] = "45.00";
-
-            // Desserts Code Number
-            order[10, 0] = "[DE1]";
-            order[11, 0] = "[DE2]";
-            order[12, 0] = "[DE3]";
-            order[13, 0] = "[DE4]";
-            order[14, 0] = "[DE5]";
-
-            // Desserts Name
-            order[10, 1] = "Ice Cream                                    ";
-            order[11, 1] = "Brownies                                     ";
-            order[12, 1] = "Cheesecake                                   ";
-            order[13, 1] = "Fruit Salad                                  ";
-            order[14, 1] = "Leche Flan                                   ";
-
-            // Desserts Price
-            order[10, 2] = "59.00";
-            order[11, 2] = "69.00";
-            order[12, 2] = "89.00";
-            order[13, 2] = "79.00";
-            order[14, 2] = "99.00";
         }
         public static void DisplayFoodRushMenu(string[,] order)
         {
 
-          
+
             Console.WriteLine("|*------------------------------------FoodRush Menu--------------------------------*|");
 
             // Combo Meals
@@ -306,51 +275,26 @@ namespace FoodRush_CashieringSystem_Project_Final
 
 
         }
-        public static double CheckOrder(string orderNumber)
+        public static double CheckOrder(string orderNumber, string[,] order)
         {
             double price = 0;
             orderNumber = orderNumber.ToUpper();
+            orderNumber = "[" + orderNumber + "]";
 
-            switch (orderNumber)
+            for(int a = 0; a < 15; a++)
             {
-                case "C1":
-                    return price = 159.00;
-                case "C2":
-                    return price = 199.00;
-                case "C3":
-                    return price = 179.00;
-                case "C4":
-                    return price = 189.00;
-                case "C5":
-                    return price = 169.00;
-                case "D1":
-                    return price = 39.00;
-                case "D2":
-                    return price = 49.00;
-                case "D3":
-                    return price = 29.00;
-                case "D4":
-                    return price = 59.00;
-                case "D5":
-                    return price = 45.00;
-                case "DE1":
-                    return price = 59.00;
-                case "DE2":
-                    return price = 69.00;
-                case "DE3":
-                    return price = 89.00;
-                case "DE4":
-                    return price = 79.00;
-                case "DE5":
-                    return price = 99.00;
-                default:
-                    Console.WriteLine("\n\t\t\t Invalid item number. Please try again.");
-                    return 0;
+                if(orderNumber == order[a, 0])
+                {
+                    return  Convert.ToDouble(order[a, 2]);
+                }
             }
+            return 0;
+
         }
         public static string CheckFood(string orderNumber, string[,] order)
         {
             string food = "";
+            bool ValidOrder = false;
             orderNumber = orderNumber.ToUpper();
             orderNumber = "[" + orderNumber + "]";
             for (int i = 0; i < order.GetLength(0); i++)
@@ -358,10 +302,9 @@ namespace FoodRush_CashieringSystem_Project_Final
                 if (order[i, 0] == orderNumber)
                 {
                     food = order[i, 1];
-                    break;
+                    ValidOrder = true;
                 }
             }
-
             return food;
         }
     }
