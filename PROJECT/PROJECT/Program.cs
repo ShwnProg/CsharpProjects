@@ -19,6 +19,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
 
         }
+        //security login acess
         public static void SecurityLoginAccess()
         {
             bool isAccess = true;
@@ -37,6 +38,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                     isAccess = false;
                     //Main Menu
 
+                    // invoke MainMenuOption method
                     MainMenuOption();
                 }
                 else
@@ -46,7 +48,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
             }
         }
-
+        //main menu option
         public static void MainMenuOption()
         {
             string[,] orders = new string[100, 10];
@@ -75,6 +77,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
                     case "1": //Cashiering System
                         Console.Clear();
+                        // invoke FoodRushCashieringSystem method   
                         FoodRushCashieringSystem(orders, ref orderIndex, ref orderNumber);
                         break;
                     case "2": //View Customer Order
@@ -91,7 +94,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             }
      
         }
-
+        // cashiering transaction
         public static void FoodRushCashieringSystem(string[,] order, ref int orderIndex,ref int orderNumber)
         {
             bool orderAgain = true;
@@ -105,22 +108,23 @@ namespace FoodRush_CashieringSystem_Project_Final
                 string today = DateTime.Now.ToShortDateString();
                 int transactionOrderNumber = orderNumber;
                 orderNumber++;
+                // invoke InitializeFoodData method
                 InitializeFoodData(order);
 
                 do
                 {
                     Console.Clear();
 
-                    // Display Menu
+                    // invoke Display Menu method
                     DisplayFoodRushMenu(order);
 
                     Console.Write("\n Enter item number : ");
                     string itemNumber = Console.ReadLine();
 
-                    // Check food
+                    // invoke Check food method
                     food = CheckFood(itemNumber, order);
 
-                    // Check price order
+                    // invoke Check price order method
                     double price = CheckOrder(itemNumber, order);
 
                     if (price != 0 && food != "")
@@ -143,7 +147,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                                     validQuantity = false;
                                 }
                             }
-                            catch (FormatException ex)
+                            catch (FormatException)
                             {
                                 Console.WriteLine("\n Invalid input. Please enter a valid amount! ");
                                 validQuantity = true;
@@ -196,10 +200,11 @@ namespace FoodRush_CashieringSystem_Project_Final
                 if (validOrder == true)
                 {
                     Console.Clear();
-                    // Display summary of order
-                    DisplaySummaryofOrder(order, ref orderIndex, total, transactionOrderNumber,today);
+                    // invoke Display summary of order method
+                    DisplaySummaryOfOrder(order, ref orderIndex, total, transactionOrderNumber,today);
                     bool validCash = true;
                     double cash = 0;
+                    // Ask for cash
                     while (validCash)
                     {
                         try
@@ -218,13 +223,13 @@ namespace FoodRush_CashieringSystem_Project_Final
                                 validCash = false;
                             }
                         }
-                        catch(FormatException ex)
+                        catch(FormatException)
                         {
                             Console.WriteLine("\n\t\t\t Invalid input. Please enter a valid amount: ");
                             validCash = true;
                         }
                     }
-
+                    //invoke calculate total change method
                     CalculateTotalChange(cash, total);
 
                
@@ -249,7 +254,8 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
             } while (anotherTransaction);
         }
-        public static void DisplaySummaryofOrder(string[,] orders, ref int orderIndex, double total, int orderNumber,string today)
+        //display the summary of orders method
+        public static void DisplaySummaryOfOrder(string[,] orders, ref int orderIndex, double total, int orderNumber,string today)
         {
             Console.WriteLine("\n|--------------------------------------*Order Summary*------------------------------------------|\n");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
@@ -270,6 +276,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
 
         }
+        //calculate the total of change method
         public static double CalculateTotalChange(double cash, double total)
         {
             double change;
@@ -286,6 +293,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             }
                 return change;
         }
+        //initialize food menu data method
         public static void InitializeFoodData(string[,] order)
         {
             // Combo Meals          //meals category                                               //meals prices
@@ -310,6 +318,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             order[14, 0] = "[DE5]"; order[14, 1] = "Leche Flan                                   "; order[14, 2] = "99.00";
 
         }
+        // display the food menu method
         public static void DisplayFoodRushMenu(string[,] order)
         {
 
@@ -351,6 +360,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
 
         }
+        // Check Order and convert price to double
         public static double CheckOrder(string orderNumber, string[,] order)
         {
             double price = 0;
@@ -367,6 +377,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             return 0;
 
         }
+        // Check Food method
         public static string CheckFood(string orderNumber, string[,] order)
         {
             string food = "";
