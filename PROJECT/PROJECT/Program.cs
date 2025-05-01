@@ -11,8 +11,8 @@ namespace FoodRush_CashieringSystem_Project_Final
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("\n\t\t\t\t FoodRush Cashiering System");
-            Console.WriteLine("\t\t\t---------------------------------------------");
+            Console.WriteLine("\n\t\t\t\t\t FoodRush Cashiering System");
+            Console.WriteLine("\t\t\t\t -----------------------------------------");
 
             // Call the login method
             PerformLogin();
@@ -23,14 +23,14 @@ namespace FoodRush_CashieringSystem_Project_Final
         public static void PerformLogin()
         {
             bool isAccess = true;
-            Console.WriteLine("\n\t\t\t\t\t LOGIN");
+            Console.WriteLine("\n\t\t\t\t\t --------*LOGIN*-------- \n\n");
 
             while (isAccess)
             {
-                Console.Write("\n\t\t\t Enter username: ");
+                Console.Write("\n\t\t\t\t\t  >>Enter username : ");
                 string username = Console.ReadLine();
 
-                Console.Write("\n\t\t\t Enter password: ");
+                Console.Write("\n\t\t\t\t\t  >>Enter password : ");
                 string password = Console.ReadLine();
 
                 if (username == "admin" && password == "admin123")
@@ -42,7 +42,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
                 else
                 {
-                    Console.WriteLine("\n\t\tInvalid username or password. Please try again.");
+                    Console.WriteLine("\n\t\t\t\t\t tInvalid username or password. Please try again.");
                     Console.ReadKey();
                 }
             }
@@ -64,16 +64,19 @@ namespace FoodRush_CashieringSystem_Project_Final
             while (inputAgain)
             {
                 Console.Clear();
-                Console.WriteLine("\n\t\t\t\t        FoodRush Main Menu");
-                Console.WriteLine("\t\t\t--------------------------------------------------");
-                Console.WriteLine("\n\t\t\t 1. Cashiering Transaction");
-                Console.WriteLine("\t\t\t 2. View Customer Order");
-                Console.WriteLine("\t\t\t 3. View Sales");
-                Console.WriteLine("\t\t\t 4. EXIT");
+                Console.WriteLine("\n\t\t\t\t\t        FoodRush Main Menu");
+                Console.WriteLine("\t\t\t\t\t --------------------------------\n");
+                Console.WriteLine("\t\t\t\t\t ===============================");
+                Console.WriteLine("\t\t\t\t\t | 1. Cashiering Transaction   |");
+                Console.WriteLine("\t\t\t\t\t | 2. View Customer Order      |");
+                Console.WriteLine("\t\t\t\t\t | 3. View Sales               |");
+                Console.WriteLine("\t\t\t\t\t | 4. EXIT                     |");
+                Console.WriteLine("\t\t\t\t\t ===============================");
 
-                Console.Write("\n\t\t\t >>Select an option: ");
+
+                Console.Write("\n\t\t\t\t >>Select an option: ");
                 string userOpt = Console.ReadLine();
-                while(userOpt != "1" && userOpt != "2" &&  userOpt != "3" && userOpt != "4")
+                while (userOpt != "1" && userOpt != "2" && userOpt != "3" && userOpt != "4")
                 {
                     Console.WriteLine("\n\t\t\tInvalid Input.Try Again.");
                     Console.Write("\n\t\t\t >>Select an option: ");
@@ -87,7 +90,9 @@ namespace FoodRush_CashieringSystem_Project_Final
                         ProcessCashieringTransaction(orders, ref orderIndex, ref orderNumber);
                         break;
                     case "2":
-                        // (To be added: View customer orders)
+                        Console.Clear();
+                        // Start the view custmer order
+                        ViewCustomerOrder(orders, orderIndex);
                         break;
                     case "3":
                         // (To be added: View sales report)
@@ -101,6 +106,8 @@ namespace FoodRush_CashieringSystem_Project_Final
             }
         }
 
+        //---------------------------------------------------------------------------------------------------------------
+
 
         // Handle the cashiering transaction
         public static void ProcessCashieringTransaction(string[,] order, ref int orderIndex, ref int orderNumber)
@@ -108,13 +115,13 @@ namespace FoodRush_CashieringSystem_Project_Final
             bool anotherTransaction = true;
             bool validOrder;
 
-            
+
             do
             {
                 double total = 0;
                 string food;
-                string today = DateTime.Now.ToShortDateString();
-                int transactionOrderNumber = orderNumber,quantity = 0;
+                string today = DateTime.Now.ToString("MM/dd/yyyy");
+                int transactionOrderNumber = orderNumber, quantity = 0;
                 bool orderAgain = true;
                 validOrder = false;
 
@@ -124,10 +131,10 @@ namespace FoodRush_CashieringSystem_Project_Final
                 DisplayMenu(order);
 
 
-                while (orderAgain) 
-                { 
-                
-                  
+                while (orderAgain)
+                {
+
+
                     Console.Write("\n >>Enter item number : ");
                     string itemNumber = Console.ReadLine();
 
@@ -157,15 +164,17 @@ namespace FoodRush_CashieringSystem_Project_Final
                         Console.WriteLine("\n\n\t\tItem not found, please try again.");
 
                     }
-                    Console.Write("\n\n\t >>Do you want to order again? (Y/N): ");
+                    Console.Write("\n\n\t\t >>Do you want to order again? (Y/N): ");
                     string continueOpt = Console.ReadLine();
 
                     while (continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
                     {
-                        Console.Write("\n >>Invalid input. Please enter Y or N: ");
+                        Console.Write("\n\t\t\t Invalid input. Please enter any key to try again.");
+                        Console.ReadKey();
+                        Console.Write("\n\n\t\t >>Do you want to order again? (Y/N): ");
                         continueOpt = Console.ReadLine();
                     }
-                    if(continueOpt == "Y" || continueOpt == "y")
+                    if (continueOpt == "Y" || continueOpt == "y")
                     {
 
                         orderAgain = true;
@@ -174,7 +183,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                     {
                         orderAgain = false;
                     }
-                } 
+                }
 
                 if (validOrder == true && total > 0)
                 {
@@ -188,8 +197,8 @@ namespace FoodRush_CashieringSystem_Project_Final
                     // Calculate the change
                     CalculateChange(cash, total);
 
-                    
-                  
+
+
                 }
                 else
                 {
@@ -206,7 +215,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
                 if (anotherTrans == "Y" || anotherTrans == "y")
                 {
-                    
+
 
                     Console.Clear();
 
@@ -220,6 +229,8 @@ namespace FoodRush_CashieringSystem_Project_Final
 
             } while (anotherTransaction);
         }
+
+        //---------------------------------------------------------------------------------------------------------------
 
 
         // Set up the menu data
@@ -246,6 +257,8 @@ namespace FoodRush_CashieringSystem_Project_Final
             order[13, 0] = "DE4"; order[13, 1] = "Fruit Salad                                  "; order[13, 2] = "79.00";
             order[14, 0] = "DE5"; order[14, 1] = "Leche Flan                                   "; order[14, 2] = "99.00";
         }
+
+        //---------------------------------------------------------------------------------------------------------------
 
 
         // Show the menu items to the user
@@ -415,18 +428,125 @@ namespace FoodRush_CashieringSystem_Project_Final
                     Console.WriteLine("\n\t\t\t Invalid input. Please enter a valid amount: ");
                 }
             }
+            change = cash - total;
             if (cash == total)
             {
                 Console.WriteLine("\n\t\t\t Exact amount received. No change required.");
             }
             else
             {
-                change = cash - total;
-                Console.WriteLine("\n =0=0=0=0=0=0=0=0=0=0=0=0=");
+
+                Console.WriteLine("\n=0=0=0=0=0=0=0=0=0=0=0=0=");
                 Console.WriteLine("  | Total Change : " + change + "  |");
                 Console.WriteLine(" =0=0=0=0=0=0=0=0=0=0=0=0=");
             }
             return validCash;
         }
+
+        //---------------------------------------------------------------------------------------------------------------
+
+        //view customer order method
+        public static void ViewCustomerOrder(string[,] orders, int orderIndex)
+        {
+            bool continueTransaction = false;
+            do
+            {
+                Console.Clear();
+                Console.Write("\n\t >>Enter order number      : ");
+                string orderNumber = Console.ReadLine();
+
+                Console.Write("\n\t >>Enter date [MM/DD/YYYY] : ");
+                string dateOrder = Console.ReadLine();
+
+                if (IsValidOrder(orderNumber, dateOrder, orders, orderIndex))
+                {
+                    Console.WriteLine("\n[Order Found]");
+                    DisplayOrderDetails(orders, orderIndex, orderNumber, dateOrder);
+
+                    double totalAmount = CalculateTotalAmount(orders, orderIndex, orderNumber, dateOrder);
+                    Console.WriteLine("|Order Number : {0,73}       |", orderNumber);
+                    Console.WriteLine("|Date         :    {0,73}    |", dateOrder);
+                    Console.WriteLine("|Total Amount : {0,71} PHP     |", totalAmount);
+                    Console.WriteLine("-------------------------------------------------------------------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("\n\n\t Transaction not found for the given order number and date.");
+                }
+
+                Console.Write("\n\t >>Do you want to process another transaction? (Y/N): ");
+                string anotherTrans = Console.ReadLine();
+
+                while (anotherTrans != "Y" && anotherTrans != "y" && anotherTrans != "N" && anotherTrans != "n")
+                {
+                    Console.Write("\n\n\tOops! Something went wrong with your input. Please try again.");
+                    Console.ReadKey();
+
+                    Console.Write("\n\t >>Do you want to process another transaction? (Y/N): ");
+                    anotherTrans = Console.ReadLine();
+                }
+
+                if(anotherTrans == "Y" || anotherTrans == "y")
+                {
+                    continueTransaction = false;
+                }
+                else
+                {
+                    continueTransaction = true;
+                }
+
+            } while (!continueTransaction);
+        }
+
+        //validate order
+        public static bool IsValidOrder(string orderNumber, string dateOrder, string[,] orders, int orderIndex)
+        {
+            for (int j = 0; j < orderIndex; j++)
+            {
+                if (orders[j, 3] == orderNumber && orders[j, 4] == dateOrder)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //display overall order details
+        public static void DisplayOrderDetails(string[,] orders, int orderIndex, string orderNumber, string dateOrder)
+        {
+            Console.WriteLine("|--------------------------------------*Order Details*------------------------------------------|");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("|  Item Number  |         Food                                  |    Price     |    Quantity    |");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+
+            for (int j = 0; j < orderIndex; j++)
+            {
+                if (orders[j, 3] == orderNumber && orders[j, 4] == dateOrder)
+                {
+                    Console.WriteLine("|      {0,-8} | {1,-16} |     {2,-5}PHP |        {3,-7} |", orders[j, 5], orders[j, 6], orders[j, 7], orders[j, 8]);
+                }
+            }
+
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+        }
+
+        //calculate overall total
+        public static double CalculateTotalAmount(string[,] orders, int orderIndex, string orderNumber, string dateOrder)
+        {
+            double totalAmount = 0;
+            for (int j = 0; j < orderIndex; j++)
+            {
+                if (orders[j, 3] == orderNumber && orders[j, 4] == dateOrder)
+                {
+                    totalAmount += Convert.ToDouble(orders[j, 9]);
+                }
+            }
+            return totalAmount;
+        }
+
     }
+
+
 }
+
+
