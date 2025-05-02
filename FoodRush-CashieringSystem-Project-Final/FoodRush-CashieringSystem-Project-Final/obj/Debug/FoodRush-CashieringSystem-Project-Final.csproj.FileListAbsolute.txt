@@ -1,0 +1,7 @@
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRush-CashieringSystem-Project-Final\FoodRush-CashieringSystem-Project-Final\bin\Debug\FoodRush-CashieringSystem-Project-Final.exe.config
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRush-CashieringSystem-Project-Final\FoodRush-CashieringSystem-Project-Final\bin\Debug\FoodRush-CashieringSystem-Project-Final.exe
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRush-CashieringSystem-Project-Final\FoodRush-CashieringSystem-Project-Final\bin\Debug\FoodRush-CashieringSystem-Project-Final.pdb
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRush-CashieringSystem-Project-Final\FoodRush-CashieringSystem-Project-Final\obj\Debug\FoodRush-CashieringSystem-Project-Final.csproj.AssemblyReference.cache
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRush-CashieringSystem-Project-Final\FoodRush-CashieringSystem-Project-Final\obj\Debug\FoodRush-CashieringSystem-Project-Final.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRush-CashieringSystem-Project-Final\FoodRush-CashieringSystem-Project-Final\obj\Debug\FoodRush-CashieringSystem-Project-Final.exe
+C:\Users\Administrator\OneDrive\Desktop\C# practice\FoodRush-CashieringSystem-Project-Final\FoodRush-CashieringSystem-Project-Final\obj\Debug\FoodRush-CashieringSystem-Project-Final.pdb
