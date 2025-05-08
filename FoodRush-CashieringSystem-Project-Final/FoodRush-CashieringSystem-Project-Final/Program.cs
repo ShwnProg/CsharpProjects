@@ -13,32 +13,31 @@ namespace FoodRush_CashieringSystem_Project_Final
 
         static void Main(string[] args)
         {
-            
-            Console.WriteLine("\n\t\t\t\t\t FoodRush Cashiering System");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n\t\t\t\t\t \r\n                    ███████╗ ██████╗  ██████╗ ██████╗     ██████╗ ██╗   ██╗███████╗██╗  ██╗\r\n                    ██╔════╝██╔═══██╗██╔═══██╗██╔══██╗    ██╔══██╗██║   ██║██╔════╝██║  ██║\r\n                    █████╗  ██║   ██║██║   ██║██║  ██║    ██████╔╝██║   ██║███████╗███████║\r\n                    ██╔══╝  ██║   ██║██║   ██║██║  ██║    ██╔══██╗██║   ██║╚════██║██╔══██║\r\n                    ██║     ╚██████╔╝╚██████╔╝██████╔╝    ██║  ██║╚██████╔╝███████║██║  ██║\r\n                    ╚═╝      ╚═════╝  ╚═════╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝\r\n                                                                                           \r\n");
             Console.WriteLine("\t\t\t\t -----------------------------------------");
+            Console.ResetColor();
 
             // Call the login method
             PerformLogin();
         }
 
-                                                    // Let the user log in//
+        // Let the user log in//
         //---------------------------------------------------------------------------------------------------------------//
 
 
         public static void PerformLogin()
         {
             bool isAccess = true;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\n\t\t\t\t\t --------*LOGIN*-------- \n\n");
-
+            Console.ResetColor();
             while (isAccess)
             {
-                Console.Write("\n\t\t\t\t\t  >>Enter username : ");
-                string username = Console.ReadLine();
-
-                Console.Write("\n\t\t\t\t\t  >>Enter password : ");
+                Console.Write("\n\t\t\t\t\t >>Enter password : ");
                 string password = Console.ReadLine();
 
-                if (username == "admin" && password == "admin123")
+                if (password == "admin123")
                 {
                     isAccess = false;
 
@@ -47,14 +46,14 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
                 else
                 {
-                    
+
                     Console.WriteLine("\n\t\t\t\t\t Invalid username or password. Please try again.");
                     Console.ReadKey();
                 }
             }
         }
 
-                                                // Show the main menu options//
+        // Show the main menu options//
         //---------------------------------------------------------------------------------------------------------------//
 
         public static void ShowMainMenu()
@@ -72,18 +71,22 @@ namespace FoodRush_CashieringSystem_Project_Final
             {
                 Console.Clear();
                 //display main menu
-                Console.WriteLine("\n\t\t\t\t\t        FoodRush Main Menu");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\n\t\t\t\t\t        \r\n                                                _                                     \r\n                                  /\\/\\    __ _ (_) _ __     /\\/\\    ___  _ __   _   _ \r\n                                 /    \\  / _` || || '_ \\   /    \\  / _ \\| '_ \\ | | | |\r\n                                / /\\/\\ \\| (_| || || | | | / /\\/\\ \\|  __/| | | || |_| |\r\n                                \\/    \\/ \\__,_||_||_| |_| \\/    \\/ \\___||_| |_| \\__,_|\r\n                                                                                      \r\n");
                 Console.WriteLine("\t\t\t\t\t --------------------------------\n");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\t\t\t\t\t ===============================");
                 Console.WriteLine("\t\t\t\t\t | 1. Cashiering Transaction   |");
                 Console.WriteLine("\t\t\t\t\t | 2. View Customer Order      |");
                 Console.WriteLine("\t\t\t\t\t | 3. View Sales               |");
                 Console.WriteLine("\t\t\t\t\t | 4. EXIT                     |");
                 Console.WriteLine("\t\t\t\t\t ===============================");
-
+                Console.ResetColor();
                 // Prompt the user for an option
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("\n\t\t\t\t >>Select an option: ");
                 string userOpt = Console.ReadLine();
+                Console.ResetColor();
 
                 //validate user input
                 while (userOpt != "1" && userOpt != "2" && userOpt != "3" && userOpt != "4")
@@ -92,7 +95,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                     Console.Write("\n\t\t\t >>Select an option: ");
                     userOpt = Console.ReadLine();
                 }
-                
+
                 //
                 switch (userOpt)
                 {
@@ -119,19 +122,19 @@ namespace FoodRush_CashieringSystem_Project_Final
             }
         }
 
-                                            // Handle the cashiering transaction //
+        // Handle the cashiering transaction //
         //---------------------------------------------------------------------------------------------------------------//
 
         public static void ProcessCashieringTransaction(string[,] order, ref int orderIndex, ref int orderNumber)
         {
-            
+
             bool anotherTransaction = true;
             bool validOrder;
 
             do
             {
                 // Initialize variables
-                double total = 0,grandTotal = 0;
+                double total = 0, grandTotal = 0;
                 string food;
                 string today = DateTime.Now.ToString("MM/dd/yyyy");
                 int transactionOrderNumber = orderNumber, quantity = 0;
@@ -209,7 +212,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                     Console.Clear();
                     orderNumber++;
                     // Show order summary
-                    DisplayOrderSummary(order, ref orderIndex, transactionOrderNumber, today,grandTotal);
+                    DisplayOrderSummary(order, ref orderIndex, transactionOrderNumber, today, grandTotal);
 
                     // Ask for payment
                     double cash = 0;
@@ -246,10 +249,10 @@ namespace FoodRush_CashieringSystem_Project_Final
                     anotherTransaction = false;
                 }
 
-            } while (anotherTransaction); 
+            } while (anotherTransaction);
         }
 
-                                                // Set up the menu data // - Menu Display
+        // Set up the menu data // - Menu Display
         //---------------------------------------------------------------------------------------------------------------//
 
 
@@ -277,7 +280,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             order[14, 0] = "DE5"; order[14, 1] = "Leche Flan                                   "; order[14, 2] = "99.00";
         }
 
-                                           // Show the menu items to the user // - Cashiering Transaction 
+        // Show the menu items to the user // - Cashiering Transaction 
         //---------------------------------------------------------------------------------------------------------------//
 
 
@@ -293,7 +296,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             Console.WriteLine("\n [Combo Meals]---------------------------------------------------------\n");
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine("    [{0}]          {1,-30}   {2,7}", order[i, 0], order[i, 1], order[i, 2]); 
+                Console.WriteLine("    [{0}]          {1,-30}   {2,7}", order[i, 0], order[i, 1], order[i, 2]);
             }
             // Display Drinks
             Console.WriteLine("\n [Drinks]---------------------------------------------------------------\n");
@@ -311,7 +314,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             Console.WriteLine("\n ------------------------------------------------------------------------------");
         }
 
-                                          // Get the item name using the code // - Cashiering Transaction
+        // Get the item name using the code // - Cashiering Transaction
         //---------------------------------------------------------------------------------------------------------------//
 
         public static string GetItemName(string orderChoice, string[,] order)
@@ -321,7 +324,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             for (int i = 0; i < order.GetLength(0); i++)
             {
                 // Check if the item code matches the order choice
-                if (order[i, 0] == orderChoice) 
+                if (order[i, 0] == orderChoice)
                 {
                     food = order[i, 1]; // Get the food name
                     break;
@@ -330,7 +333,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             return food;
         }
 
-                                       // Get the price using the code // - Cashiering Transaction
+        // Get the price using the code // - Cashiering Transaction
         //---------------------------------------------------------------------------------------------------------------//
 
         public static double GetItemPrice(string orderChoice, string[,] order)
@@ -338,7 +341,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             // Initialize variables
             double price = 0;
             // Initialize a bool to check if the price was found
-            bool priceFound = false; 
+            bool priceFound = false;
 
             // Convert the order choice to uppercase for case-insensitive comparison
             orderChoice = orderChoice.ToUpper();
@@ -362,7 +365,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             return price;
         }
 
-                                              // Get a valid quantity // - Cashiering Transaction
+        // Get a valid quantity // - Cashiering Transaction
         //---------------------------------------------------------------------------------------------------------------//
 
         public static int GetValidQuantity()
@@ -398,7 +401,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             return quantity;
         }
 
-                                             // Method to save order data// - 2D Array
+        // Method to save order data// - 2D Array
         //---------------------------------------------------------------------------------------------------------------//
 
         public static void SaveOrderData(string[,] order, ref int orderIndex, int transactionOrderNumber, string today, string itemNumber, string food, double price, int quantity, double total)
@@ -410,15 +413,15 @@ namespace FoodRush_CashieringSystem_Project_Final
             order[orderIndex, 7] = Convert.ToString(price);               // Price
             order[orderIndex, 8] = Convert.ToString(quantity);           // Quantity
             order[orderIndex, 9] = Convert.ToString(total);             // Total * quantity = total
-          
+
 
             orderIndex++;  // Increment the order index for the next order
         }
 
-                                           // Show the full summary of the order// - Cashiering Transaction
+        // Show the full summary of the order// - Cashiering Transaction
         //---------------------------------------------------------------------------------------------------------------//
 
-        public static void DisplayOrderSummary(string[,] orders, ref int orderIndex, int orderNumber, string today,double grandTotal)
+        public static void DisplayOrderSummary(string[,] orders, ref int orderIndex, int orderNumber, string today, double grandTotal)
         {
             //display order summary header
             Console.WriteLine("\n|--------------------------------------------------*Order Summary*--------------------------------------------------|\n");
@@ -426,12 +429,12 @@ namespace FoodRush_CashieringSystem_Project_Final
             Console.WriteLine("|  Item Number  |         Food Item                             |   Unit Price      |    Quantity    |   Sub Total  |");
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
 
-            
+
             for (int i = 0; i < orderIndex; i++)
             {
                 if (orders[i, 3] == orderNumber.ToString())
                 {
-                    Console.WriteLine("|      {0,-8} | {1,-16} |     {2,-10}PHP |        {3,-7} |   {4,-5}PHP   |", orders[i, 5], orders[i, 6], orders[i, 7], orders[i, 8], orders[i,9]);
+                    Console.WriteLine("|      {0,-8} | {1,-16} |     {2,-10}PHP |        {3,-7} |   {4,-5}PHP   |", orders[i, 5], orders[i, 6], orders[i, 7], orders[i, 8], orders[i, 9]);
                 }
             }
             //display order summary details
@@ -443,7 +446,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
         }
 
-                                               // Ask for payment and show change // - Cashiering Transaction
+        // Ask for payment and show change // - Cashiering Transaction
         //---------------------------------------------------------------------------------------------------------------//
 
         public static bool CalculateChange(double cash, double grandTotal)
@@ -490,7 +493,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             return validCash;
         }
 
-                                                //view customer order method//
+        //view customer order method//
         //---------------------------------------------------------------------------------------------------------------//
 
         public static void ViewCustomerOrder(string[,] orders, int orderIndex)
@@ -540,7 +543,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                     anotherTrans = Console.ReadLine();
                 }
 
-                if(anotherTrans == "Y" || anotherTrans == "y")
+                if (anotherTrans == "Y" || anotherTrans == "y")
                 {
                     continueTransaction = false;
                 }
@@ -552,7 +555,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             } while (!continueTransaction);
         }
 
-                                                    //validate order// - View Customer Order
+        //validate order// - View Customer Order
         //---------------------------------------------------------------------------------------------------------------//
 
         public static bool IsValidOrder(string orderNumber, string dateOrder, string[,] orders, int orderIndex)
@@ -568,7 +571,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             return false;
         }
 
-                                                //display overall order details // - View Customer Order
+        //display overall order details // - View Customer Order
         //---------------------------------------------------------------------------------------------------------------//
 
         public static void DisplayOrderDetails(string[,] orders, int orderIndex, string orderNumber, string dateOrder)
@@ -590,7 +593,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                                                                                                                         orders[j, 6],
                                                                                                                         orders[j, 7],
                                                                                                                         orders[j, 8],
-                                                                                                                        orders[j,9]);
+                                                                                                                        orders[j, 9]);
                     Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
 
                 }
@@ -598,7 +601,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
 
         }
-                                             //calculate overall total// - View Customer Order
+        //calculate overall total// - View Customer Order
         //---------------------------------------------------------------------------------------------------------------//
 
         public static double CalculateTotalAmount(string[,] orders, int orderIndex, string orderNumber, string dateOrder)
@@ -615,7 +618,7 @@ namespace FoodRush_CashieringSystem_Project_Final
             return totalAmount;
         }
 
-                                                          //view sales method//
+        //view sales method//
         //---------------------------------------------------------------------------------------------------------------//
 
         public static void ViewSales(string[,] orders, int orderIndex)
@@ -669,10 +672,10 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
             } while (!continueTransaction);
 
-   
+
         }
 
-                                                  //validate order// - View Sales
+        //validate order// - View Sales
         //---------------------------------------------------------------------------------------------------------------//
 
         public static bool IsTransactionFound(string dateOrder, string[,] orders, int orderIndex)
@@ -688,10 +691,10 @@ namespace FoodRush_CashieringSystem_Project_Final
             return false;
         }
 
-                                              //display overall total sales// - View Sales
+        //display overall total sales// - View Sales
         //---------------------------------------------------------------------------------------------------------------//
 
-        public static void DisplayOverallTotalSales(string[,] orders, int orderIndex,string dateOrder)
+        public static void DisplayOverallTotalSales(string[,] orders, int orderIndex, string dateOrder)
         {
             //display sales report header
             Console.WriteLine("\n|----------------------------------------------*Sales Report*-------------------------------------------|\n");
@@ -706,7 +709,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 if (orders[j, 4] == dateOrder)
                 {
                     //display sales report details
-                    Console.WriteLine("| {1,-16} |     {2,-5}PHP      |        {3,-7}     |     {4,-5}PHP |",           orders[j, 5],
+                    Console.WriteLine("| {1,-16} |     {2,-5}PHP      |        {3,-7}     |     {4,-5}PHP |", orders[j, 5],
                                                                                                                         orders[j, 6],
                                                                                                                         orders[j, 7],
                                                                                                                         orders[j, 8],
@@ -719,7 +722,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
         }
 
-                                           //calculate overall total sales// - View Sales
+        //calculate overall total sales// - View Sales
         //---------------------------------------------------------------------------------------------------------------//
 
         public static double CalculateOverAllSales(string[,] orders, int orderIndex, string dateOrder)
