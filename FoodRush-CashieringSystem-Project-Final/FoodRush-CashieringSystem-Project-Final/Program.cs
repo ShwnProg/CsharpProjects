@@ -14,8 +14,7 @@ namespace FoodRush_CashieringSystem_Project_Final
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n\t\t\t\t\t \r\n                    ███████╗ ██████╗  ██████╗ ██████╗     ██████╗ ██╗   ██╗███████╗██╗  ██╗\r\n                    ██╔════╝██╔═══██╗██╔═══██╗██╔══██╗    ██╔══██╗██║   ██║██╔════╝██║  ██║\r\n                    █████╗  ██║   ██║██║   ██║██║  ██║    ██████╔╝██║   ██║███████╗███████║\r\n                    ██╔══╝  ██║   ██║██║   ██║██║  ██║    ██╔══██╗██║   ██║╚════██║██╔══██║\r\n                    ██║     ╚██████╔╝╚██████╔╝██████╔╝    ██║  ██║╚██████╔╝███████║██║  ██║\r\n                    ╚═╝      ╚═════╝  ╚═════╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝\r\n                                                                                           \r\n");
-            Console.WriteLine("\t\t\t\t -----------------------------------------");
+            Console.WriteLine("\n\t\t\t\t\t\r\n                        ███████╗ ██████╗  ██████╗ ██████╗     ██████╗ ██╗   ██╗███████╗██╗  ██╗\r\n                        ██╔════╝██╔═══██╗██╔═══██╗██╔══██╗    ██╔══██╗██║   ██║██╔════╝██║  ██║\r\n                        █████╗  ██║   ██║██║   ██║██║  ██║    ██████╔╝██║   ██║███████╗███████║\r\n                        ██╔══╝  ██║   ██║██║   ██║██║  ██║    ██╔══██╗██║   ██║╚════██║██╔══██║\r\n                        ██║     ╚██████╔╝╚██████╔╝██████╔╝    ██║  ██║╚██████╔╝███████║██║  ██║\r\n                        ╚═╝      ╚═════╝  ╚═════╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝\r\n                                                                                               \r\n");
             Console.ResetColor();
 
             // Call the login method
@@ -30,7 +29,9 @@ namespace FoodRush_CashieringSystem_Project_Final
         {
             bool isAccess = true;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\n\t\t\t\t\t --------*LOGIN*-------- \n\n");
+            Console.WriteLine("\t\t\t\t\t ═════════════════════════════════");
+            Console.WriteLine("\t\t\t\t\t ║              Login            ║");
+            Console.WriteLine("\t\t\t\t\t ═════════════════════════════════");
             Console.ResetColor();
             while (isAccess)
             {
@@ -73,27 +74,30 @@ namespace FoodRush_CashieringSystem_Project_Final
                 //display main menu
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\n\t\t\t\t\t        \r\n                                                _                                     \r\n                                  /\\/\\    __ _ (_) _ __     /\\/\\    ___  _ __   _   _ \r\n                                 /    \\  / _` || || '_ \\   /    \\  / _ \\| '_ \\ | | | |\r\n                                / /\\/\\ \\| (_| || || | | | / /\\/\\ \\|  __/| | | || |_| |\r\n                                \\/    \\/ \\__,_||_||_| |_| \\/    \\/ \\___||_| |_| \\__,_|\r\n                                                                                      \r\n");
-                Console.WriteLine("\t\t\t\t\t --------------------------------\n");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("\t\t\t\t\t ===============================");
-                Console.WriteLine("\t\t\t\t\t | 1. Cashiering Transaction   |");
-                Console.WriteLine("\t\t\t\t\t | 2. View Customer Order      |");
-                Console.WriteLine("\t\t\t\t\t | 3. View Sales               |");
-                Console.WriteLine("\t\t\t\t\t | 4. EXIT                     |");
-                Console.WriteLine("\t\t\t\t\t ===============================");
+                Console.WriteLine("\t\t\t\t\t ═════════════════════════════════\n");
+                Console.WriteLine("\t\t\t\t\t ╔═══════════════════════════════╗");
+                Console.WriteLine("\t\t\t\t\t ║ 1. Cashiering Transaction     ║");
+                Console.WriteLine("\t\t\t\t\t ║ 2. View Customer Order        ║");
+                Console.WriteLine("\t\t\t\t\t ║ 3. View Sales                 ║");
+                Console.WriteLine("\t\t\t\t\t ║ 4. EXIT                       ║");
+                Console.WriteLine("\t\t\t\t\t ╚═══════════════════════════════╝");
+                
                 Console.ResetColor();
                 // Prompt the user for an option
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("\n\t\t\t\t >>Select an option: ");
                 string userOpt = Console.ReadLine();
-                Console.ResetColor();
 
                 //validate user input
                 while (userOpt != "1" && userOpt != "2" && userOpt != "3" && userOpt != "4")
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n\n\t\t\t\tInvalid Input.Try Again.");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("\n\t\t\t >>Select an option: ");
                     userOpt = Console.ReadLine();
+                    Console.ResetColor();
                 }
 
                 //
@@ -114,8 +118,12 @@ namespace FoodRush_CashieringSystem_Project_Final
                         ViewSales(orders, orderIndex);
                         break;
                     case "4":
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("\n\t\t\t\t Thank you for using FoodRush Cashiering System!");
                         Console.WriteLine("\t\t\t\t --------------------------------------------------");
+                        Console.WriteLine("\n\t\t\t\t Exiting the system...");
+                        Console.ResetColor();
+
                         inputAgain = false;
                         break;
                 }
@@ -144,16 +152,19 @@ namespace FoodRush_CashieringSystem_Project_Final
 
                 Console.Clear();
 
-                // Display the menu
+                // Display the Menu
                 DisplayMenu(order);
-
 
                 while (orderAgain)
                 {
                     Console.Clear();
                     DisplayMenu(order);
+
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("\n\n >>Enter Item Code : ");
                     string itemNumber = Console.ReadLine();
+                    Console.ResetColor();
 
                     // Get the food name
                     food = GetItemName(itemNumber, order);
@@ -164,36 +175,45 @@ namespace FoodRush_CashieringSystem_Project_Final
                     if (price != 0 && food != "")
                     {
                         quantity = GetValidQuantity();
+                        Console.ResetColor();
 
                         total = price * quantity;
                         grandTotal += total;
 
                         // Show total price
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("\n ----------------------------------");
                         //Console.WriteLine("  Subtotal for this item : " + total + " PHP");
                         Console.WriteLine("  Running Total          : " + grandTotal + " PHP");
                         Console.WriteLine(" ----------------------------------");
+                        Console.ResetColor();
                         // Save the order
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("\n\n\t\t\t\t[Order Saved]");
                         SaveOrderData(order, ref orderIndex, transactionOrderNumber, today, itemNumber, food, price, quantity, total);
                         validOrder = true;
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\n\n\t\tItem not found, please try again.");
 
                     }
                     // Ask if the user wants to order again
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("\n\n\t\t >>Do you want to order again? (Y/N): ");
                     string continueOpt = Console.ReadLine();
-
 
                     // Validate user input
                     while (continueOpt != "Y" && continueOpt != "y" && continueOpt != "N" && continueOpt != "n")
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("\n\t\t\t Invalid input. Please enter any key to try again.");
                         Console.ReadKey();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("\n\n\t\t >>Do you want to order again? (Y/N): ");
                         continueOpt = Console.ReadLine();
+                        Console.ResetColor();
                     }
                     if (continueOpt == "Y" || continueOpt == "y")
                     {
@@ -212,28 +232,33 @@ namespace FoodRush_CashieringSystem_Project_Final
                     Console.Clear();
                     orderNumber++;
                     // Show order summary
+                    Console.ForegroundColor = ConsoleColor.White;
                     DisplayOrderSummary(order, ref orderIndex, transactionOrderNumber, today, grandTotal);
-
+                    Console.ResetColor();
                     // Ask for payment
                     double cash = 0;
 
                     // Calculate the change
                     CalculateChange(cash, grandTotal);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n\n [Transaction Saved]");
 
 
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n\n\t\t No valid order was made.");
                 }
                 // Ask if user wants another transaction
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("\n\n >>Start New Transaction (Y/N): ");
                 string anotherTrans = Console.ReadLine();
 
                 // Validate user input
                 while (anotherTrans != "Y" && anotherTrans != "y" && anotherTrans != "N" && anotherTrans != "n")
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("\n\t\t\t Invalid input. Please enter Y or N: ");
                     anotherTrans = Console.ReadLine();
                 }
@@ -287,10 +312,13 @@ namespace FoodRush_CashieringSystem_Project_Final
         public static void DisplayMenu(string[,] order)
         {
             // Display the menu header
-            Console.WriteLine("|*------------------------------------FoodRush Menu--------------------------------*|");
-
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(" ╔════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine(" ║                            FoodRush Menu                                   ║");
+            Console.WriteLine(" ╚════════════════════════════════════════════════════════════════════════════╝");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\n   Menu Code      Meal Name                                        Price  ");
-            Console.WriteLine(" ------------------------------------------------------------------------------");
+            Console.WriteLine(" ╔════════════════════════════════════════════════════════════════════════════╗");
 
             // Display Combo Meals
             Console.WriteLine("\n [Combo Meals]---------------------------------------------------------\n");
@@ -298,12 +326,14 @@ namespace FoodRush_CashieringSystem_Project_Final
             {
                 Console.WriteLine("    [{0}]          {1,-30}   {2,7}", order[i, 0], order[i, 1], order[i, 2]);
             }
+
             // Display Drinks
             Console.WriteLine("\n [Drinks]---------------------------------------------------------------\n");
             for (int i = 5; i < 10; i++)
             {
                 Console.WriteLine("    [{0}]          {1,-30}   {2,7}", order[i, 0], order[i, 1], order[i, 2]);
             }
+
             // Display Desserts
             Console.WriteLine("\n [Desserts]--------------------------------------------------------------\n");
             for (int i = 10; i < 15; i++)
@@ -311,8 +341,9 @@ namespace FoodRush_CashieringSystem_Project_Final
                 Console.WriteLine("    [{0}]         {1,-30}   {2,7}", order[i, 0], order[i, 1], order[i, 2]);
             }
 
-            Console.WriteLine("\n ------------------------------------------------------------------------------");
+            Console.WriteLine(" ╚════════════════════════════════════════════════════════════════════════════╝");
         }
+
 
         // Get the item name using the code // - Cashiering Transaction
         //---------------------------------------------------------------------------------------------------------------//
@@ -377,11 +408,13 @@ namespace FoodRush_CashieringSystem_Project_Final
                 try
                 {
                     // Prompt the user for the quantity
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("\n >>Enter quantity  : ");
                     quantity = int.Parse(Console.ReadLine());
                     if (quantity <= 0)
                     {
                         // If the quantity is invalid, prompt the user to enter a valid amount
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\n\t\t Invalid quantity. Please enter a valid amount! ");
                         validQuantity = true;
                     }
@@ -394,6 +427,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 catch (FormatException)
                 {
                     // Handle invalid input
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n\t\t Invalid input. Please enter a valid number! ");
                     validQuantity = true;
                 }
@@ -424,7 +458,11 @@ namespace FoodRush_CashieringSystem_Project_Final
         public static void DisplayOrderSummary(string[,] orders, ref int orderIndex, int orderNumber, string today, double grandTotal)
         {
             //display order summary header
-            Console.WriteLine("\n|--------------------------------------------------*Order Summary*--------------------------------------------------|\n");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                                                  ORDER SUMMARY                                                     ║");
+            Console.WriteLine("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
             Console.WriteLine("|  Item Number  |         Food Item                             |   Unit Price      |    Quantity    |   Sub Total  |");
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
@@ -459,12 +497,14 @@ namespace FoodRush_CashieringSystem_Project_Final
                 try
                 {
                     //prompt user for cash amount
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("\n >>Enter Cash : ");
                     cash = double.Parse(Console.ReadLine());
 
                     //validate cash amount
                     if (cash < grandTotal)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\n\t\t\t Insufficient cash. Please enter a valid amount! ");
                     }
                     else
@@ -474,6 +514,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 }
                 catch (FormatException)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n\t\t\t Invalid input. Please enter a valid amount: ");
                 }
             }
@@ -481,14 +522,17 @@ namespace FoodRush_CashieringSystem_Project_Final
             if (cash == grandTotal)
             {
                 //  display message if no change is required
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\n\t\t\t Exact amount received. No change required.");
             }
             else
             {
                 // display change
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\n ------------------------");
-                Console.WriteLine("  | Total Change : " + change + "  |");
+                Console.WriteLine(" | Total Change : " + change + "   |");
                 Console.WriteLine(" ------------------------");
+                Console.ResetColor();
             }
             return validCash;
         }
@@ -510,16 +554,18 @@ namespace FoodRush_CashieringSystem_Project_Final
                 //validate date format
                 Console.Write("\n\t\t >>Enter date [MM/DD/YYYY] : ");
                 string dateOrder = Console.ReadLine();
-
+                Console.ResetColor();
                 //check if order number and date exist
                 if (IsValidOrder(orderNumber, dateOrder, orders, orderIndex))
                 {
                     //display order report header
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n\n[Order Found]");
                     DisplayOrderDetails(orders, orderIndex, orderNumber, dateOrder);
 
                     //display order report details
                     double totalAmount = CalculateTotalAmount(orders, orderIndex, orderNumber, dateOrder);
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("| Grand Total  :      {0,88}  PHP |", totalAmount);
                     Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
 
@@ -527,19 +573,22 @@ namespace FoodRush_CashieringSystem_Project_Final
                 else
                 {
                     //display message if transaction not found
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n\n\t\t Transaction not found for the given order number and date.");
                 }
                 // Ask if user wants another transaction
-                Console.Write("\n\t >>Do you want to process another transaction? (Y/N): ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("\n\t >>Start New Transaction? (Y/N): ");
                 string anotherTrans = Console.ReadLine();
 
                 //validate user input
                 while (anotherTrans != "Y" && anotherTrans != "y" && anotherTrans != "N" && anotherTrans != "n")
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("\n\n\t\tOops! Something went wrong with your input. Please try again.");
                     Console.ReadKey();
-
-                    Console.Write("\n\n\t >>Do you want to process another transaction? (Y/N): ");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("\n\n\t >>Start New Transaction? (Y/N): ");
                     anotherTrans = Console.ReadLine();
                 }
 
@@ -577,7 +626,12 @@ namespace FoodRush_CashieringSystem_Project_Final
         public static void DisplayOrderDetails(string[,] orders, int orderIndex, string orderNumber, string dateOrder)
         {
             //display order report header
-            Console.WriteLine("\n|-------------------------------------------------*Order Details*---------------------------------------------------|\n");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                                                  ORDER DETAILS                                                     ║");
+            Console.WriteLine("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+
+            Console.ForegroundColor= ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
             Console.WriteLine("|               |                                               |                   |                |              |");
             Console.WriteLine("|  Item Number  |         Food Item                             |    Unit Price     |    Quantity    |    Total     |");
@@ -635,11 +689,13 @@ namespace FoodRush_CashieringSystem_Project_Final
                 //validate date format
                 if (IsTransactionFound(date, orders, orderIndex))
                 {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n\n[Order Found]");
                     DisplayOverallTotalSales(orders, orderIndex, date);
 
                     //display order report details
                     double totalAmount = CalculateOverAllSales(orders, orderIndex, date);
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("| Total Sales   :      {0,75}  PHP |", totalAmount);
                     Console.WriteLine("---------------------------------------------------------------------------------------------------------");
 
@@ -647,19 +703,22 @@ namespace FoodRush_CashieringSystem_Project_Final
                 else
                 {
                     //display message if transaction not found
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n\n\t\t Transaction not found for the given date.");
                 }
-
-                Console.Write("\n\t\t >>Do you want to process another transaction? (Y/N): ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("\n\t\t >>Start New Transaction? (Y/N): ");
                 string anotherTrans = Console.ReadLine();
 
                 //validate user input
                 while (anotherTrans != "Y" && anotherTrans != "y" && anotherTrans != "N" && anotherTrans != "n")
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("\n\n\t\t Oops! Something went wrong with your input. Please try again.");
                     Console.ReadKey();
 
-                    Console.Write("\n\t\t >>Do you want to process another transaction? (Y/N): ");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("\n\t\t >>Start New Transaction? (Y/N): ");
                     anotherTrans = Console.ReadLine();
                 }
                 if (anotherTrans == "Y" || anotherTrans == "y")
@@ -697,7 +756,12 @@ namespace FoodRush_CashieringSystem_Project_Final
         public static void DisplayOverallTotalSales(string[,] orders, int orderIndex, string dateOrder)
         {
             //display sales report header
-            Console.WriteLine("\n|----------------------------------------------*Sales Report*-------------------------------------------|\n");
+            // Header with Smooth Box and Color
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                                                SALES REPORT                                           ║");
+            Console.WriteLine("╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------------------------------------------------------------");
             Console.WriteLine("|                                               |                   |                    |              |");
             Console.WriteLine("|         Food Item                             |    Unit Price     |      Quantity      |    Total     |");
