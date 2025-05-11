@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FoodRush_CashieringSystem_Project_Final
@@ -29,12 +30,13 @@ namespace FoodRush_CashieringSystem_Project_Final
         {
             bool isAccess = true;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\t\t\t\t\t ═════════════════════════════════");
+            Console.WriteLine("\t\t\t\t\t ╔═══════════════════════════════╗");
             Console.WriteLine("\t\t\t\t\t ║              Login            ║");
-            Console.WriteLine("\t\t\t\t\t ═════════════════════════════════");
+            Console.WriteLine("\t\t\t\t\t ╚═══════════════════════════════╝");
             Console.ResetColor();
             while (isAccess)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("\n\t\t\t\t\t >>Enter password : ");
                 string password = Console.ReadLine();
 
@@ -43,12 +45,22 @@ namespace FoodRush_CashieringSystem_Project_Final
                     isAccess = false;
 
                     // Show the main menu
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("\n\t\tLogging in");
+                    for (int a = 0; a < 3; a++)
+                    {
+                        Thread.Sleep(500);
+                        Console.Write(".");
+                    }
+                    Console.WriteLine("\n");
                     ShowMainMenu();
+                  
                 }
                 else
                 {
-
-                    Console.WriteLine("\n\t\t\t\t\t Invalid username or password. Please try again.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\n\t\t\t\t\t Invalid password. Please try again.");
+                    Console.ResetColor();
                     Console.ReadKey();
                 }
             }
@@ -95,25 +107,46 @@ namespace FoodRush_CashieringSystem_Project_Final
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\n\n\t\t\t\tInvalid Input.Try Again.");
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("\n\t\t\t >>Select an option: ");
+                    Console.Write("\n\t\t\t\t >>Select an option: ");
                     userOpt = Console.ReadLine();
-                    Console.ResetColor();
+                    //Console.ResetColor();
                 }
 
-                //
+                
                 switch (userOpt)
                 {
                     case "1":
-                        Console.Clear();
+                        //Console.Clear();
+                        Console.Write("\n\t\tLoading");
+                        for (int b = 0; b < 3; b++)
+                        {
+                            Thread.Sleep(500);
+                            Console.Write(".");
+                        }
+                        Console.WriteLine("\n");
                         // Start the cashiering process
                         ProcessCashieringTransaction(orders, ref orderIndex, ref orderNumber);
                         break;
                     case "2":
-                        Console.Clear();
-                        // Start the view custmer order
+                        //Console.Clear();
+                        Console.Write("\n\t\tLoading");
+                        for (int c = 0; c < 3; c++)
+                        {
+                            Thread.Sleep(500);
+                            Console.Write(".");
+                        }
+                        Console.WriteLine("\n");
+                        // Start the view customer order
                         ViewCustomerOrder(orders, orderIndex);
                         break;
                     case "3":
+                        Console.Write("\n\t\tLoading");
+                        for (int d = 0; d < 3; d++)
+                        {
+                            Thread.Sleep(500);
+                            Console.Write(".");
+                        }
+                        Console.WriteLine("\n");
                         // Start the view sales
                         ViewSales(orders, orderIndex);
                         break;
@@ -181,15 +214,12 @@ namespace FoodRush_CashieringSystem_Project_Final
                         grandTotal += total;
 
                         // Show total price
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("\n ----------------------------------");
-                        //Console.WriteLine("  Subtotal for this item : " + total + " PHP");
-                        Console.WriteLine("  Running Total          : " + grandTotal + " PHP");
+                        Console.WriteLine("\tAdded: {0} x {1} - PHP {2}",quantity,itemNumber,total);
                         Console.WriteLine(" ----------------------------------");
                         Console.ResetColor();
-                        // Save the order
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.WriteLine("\n\n\t\t\t\t[Order Saved]");
+
                         SaveOrderData(order, ref orderIndex, transactionOrderNumber, today, itemNumber, food, price, quantity, total);
                         validOrder = true;
                     }
@@ -272,6 +302,14 @@ namespace FoodRush_CashieringSystem_Project_Final
                 else
                 {
                     anotherTransaction = false;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("\nReturning to the main menu");
+                    for (int e = 0; e < 3; e++)
+                    {
+                        Thread.Sleep(500);
+                        Console.Write(".");
+                    }
+                    Console.WriteLine("\n");
                 }
 
             } while (anotherTransaction);
@@ -292,7 +330,7 @@ namespace FoodRush_CashieringSystem_Project_Final
 
             // Drinks
             order[5, 0] = "D1"; order[5, 1] = "Iced Tea                                     "; order[5, 2] = "39.00";
-            order[6, 0] = "D2"; order[6, 1] = "Soft Drinks                                  "; order[6, 2] = "49.00";
+            order[6, 0] = "D2"; order[6, 1] = "Lemon Juice                                  "; order[6, 2] = "49.00";
             order[7, 0] = "D3"; order[7, 1] = "Bottled Water                                "; order[7, 2] = "29.00";
             order[8, 0] = "D4"; order[8, 1] = "Mango Juice                                  "; order[8, 2] = "59.00";
             order[9, 0] = "D5"; order[9, 1] = "Coffee                                       "; order[9, 2] = "45.00";
@@ -440,6 +478,16 @@ namespace FoodRush_CashieringSystem_Project_Final
 
         public static void SaveOrderData(string[,] order, ref int orderIndex, int transactionOrderNumber, string today, string itemNumber, string food, double price, int quantity, double total)
         {
+
+            // Add bounds checking here
+            if (orderIndex >= order.GetLength(0))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n\t\t\t Maximum orders reached! Cannot accept more orders.");
+                Console.ResetColor();
+                return;
+            }
+            // Save order data in the 2D array
             order[orderIndex, 3] = Convert.ToString(transactionOrderNumber);  // Order Number
             order[orderIndex, 4] = today;                                    // Date
             order[orderIndex, 5] = itemNumber.ToUpper();                    // Item Number
@@ -530,7 +578,7 @@ namespace FoodRush_CashieringSystem_Project_Final
                 // display change
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\n ------------------------");
-                Console.WriteLine(" | Total Change : " + change + "   |");
+                Console.WriteLine(" | Total Change : {0,5} |",change);
                 Console.WriteLine(" ------------------------");
                 Console.ResetColor();
             }
@@ -599,6 +647,14 @@ namespace FoodRush_CashieringSystem_Project_Final
                 else
                 {
                     continueTransaction = true;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("\nReturning to the main menu");
+                    for (int e = 0; e < 3; e++)
+                    {
+                        Thread.Sleep(500);
+                        Console.Write(".");
+                    }
+                    Console.WriteLine("\n");
                 }
 
             } while (!continueTransaction);
@@ -728,6 +784,14 @@ namespace FoodRush_CashieringSystem_Project_Final
                 else
                 {
                     continueTransaction = true;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("\nReturning to the main menu");
+                    for (int e = 0; e < 3; e++)
+                    {
+                        Thread.Sleep(500);
+                        Console.Write(".");
+                    }
+                    Console.WriteLine("\n");
                 }
             } while (!continueTransaction);
 
